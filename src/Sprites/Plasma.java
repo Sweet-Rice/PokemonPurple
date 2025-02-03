@@ -1,4 +1,4 @@
-/*
+package Sprites;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,7 +9,6 @@ import basicgraphics.BasicFrame;
 import basicgraphics.Scene;
 import basicgraphics.Sprite;
 import basicgraphics.SpriteCollisionEvent;
-import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
 import java.awt.Color;
 import java.awt.Graphics;

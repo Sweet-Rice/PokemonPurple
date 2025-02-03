@@ -167,6 +167,7 @@ public class Sprite implements MouseListener, Comparable<Sprite> {
         }
     }
     public double getVelX() { return velx; }
+    public void setVelX(double velx) { this.velx = velx; }
     public void setVelY(double vely) { this.vely = vely; }
     public double getVelY() { return vely; }
 

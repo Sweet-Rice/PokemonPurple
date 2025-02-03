@@ -1,3 +1,5 @@
+import Sprites.Falcon;
+import Sprites.Plasma;
 import basicgraphics.Card;
 import basicgraphics.ClockWorker;
 import basicgraphics.SpriteComponent;
@@ -37,7 +39,7 @@ public class InputHandler extends KeyAdapter {
     }
 
     private void firePlasma() {
-        // Plasma firing logic
+        // Sprites.Plasma firing logic
         Plasma pl = new Plasma(sc.getScene());
         pl.setVel(falcon.getVelX()*2, falcon.getVelY()*2);
         pl.setCenterX(falcon.centerX());

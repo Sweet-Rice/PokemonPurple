@@ -1,20 +1,22 @@
-/*
+package Sprites;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 
-import basicgraphics.*;
+import basicgraphics.Scene;
+import basicgraphics.Sprite;
+import basicgraphics.SpriteCollisionEvent;
+import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
-
-import java.awt.*;
+import java.awt.Dimension;
 
 /**
  *
  * @author sbrandt
  */
-public class BouncingSprite extends Sprite {
+public class Falcon extends Sprite {
     public Picture initialPic;
     public final static double FAC = .9;
     public SpriteComponent scw;
@@ -25,39 +27,18 @@ public class BouncingSprite extends Sprite {
      *
      * @param sc
      */
-    public BouncingSprite(Scene sc, SpriteComponent scw) {
+    public Falcon(Scene sc, SpriteComponent scw) {
         super(sc);
-        initialPic = new Picture("title.png");
+        initialPic = new Picture("mfalcon.png");
         setPicture(initialPic);
         Dimension d = sc.getSize();
-        setVelY(10);
-        setX(150);
-        setY(-200);
-
-
-
+        setX(d.width/2);
+        setY(d.height/2);
+        setVel(FAC, 0);
         this.scw = scw;
     }
 
-    private void vibrate() {
-        final int steps = 10;
-        ClockWorker.addTask(new Task(steps) {
-            @Override
-            public void run() {
-                if(iteration() %2 ==0) {
-                    setVelY(getVelY()*-1);
 
-                }
-                if(iteration() == steps-1) {
-                    setVelY(0);
-                    setY(50);
-
-
-                }
-
-            }
-        });
-    }
 
     /**
      * This sprite only reacts to collisions with the
@@ -68,16 +49,17 @@ public class BouncingSprite extends Sprite {
     @Override
     public void processEvent(SpriteCollisionEvent se) {
         SpriteComponent sc = getSpriteComponent();
-
-        if (se.yhi) {
-            setVelY(-20);
-            setY(0);
-
-                vibrate();
-
-
+        if (se.xlo) {
+            setX(sc.getFullSize().width-getWidth());
         }
-
-
+        if (se.xhi) {
+            setX(0);
+        }
+        if (se.ylo) {
+            setY(sc.getFullSize().height-getHeight());
+        }
+        if (se.yhi) {
+            setY(0);
+        }
     }
 }

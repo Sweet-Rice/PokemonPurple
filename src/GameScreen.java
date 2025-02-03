@@ -1,3 +1,6 @@
+
+
+import Sprites.Falcon;
 import basicgraphics.*;
 import basicgraphics.images.Painter;
 

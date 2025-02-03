@@ -1,6 +1,6 @@
+import Sprites.BouncingSprite;
 import basicgraphics.*;
 import basicgraphics.images.BackgroundPainter;
-import basicgraphics.images.Picture;
 import basicgraphics.sounds.ReusableClip;
 
 import javax.swing.JButton;
@@ -16,42 +16,51 @@ public class SplashScreen {
     private GameScreen gs;
     private BouncingSprite bouncingsprite;
     SpriteComponent sc;
+    SpriteComponent r;
+    SpriteComponent g;
+
+    private Red red;
+    private Gary gary;
 
     final ReusableClip titleClip = new ReusableClip("title.wav");
 
     public SplashScreen(BasicFrame frame, GameScreen gs) {
         card = frame.getCard();
         this.sc = new SpriteComponent();
+        this.r = new SpriteComponent();
+        this.g = new SpriteComponent();
         initializeUI();
         this.gs = gs;
 
     }
 
     private void initializeUI() {
-        //card.setPainter(new BackgroundPainter(new Picture("freespace.png")));
+
         ClockWorker.initialize(33);
         titleClip.playOverlapping();
 
-        String[][] layout = {
-                {"o"}
-        };
-        //ByNameLayout bnl = new ByNameLayout(layout, card);
+
         BasicLayout blayout = new BasicLayout();
         card.setLayout(blayout);
-        //card.setStringLayout(layout);
+
+
 
         card.add("x=0,y=0,w=4,h=3",sc);
+        card.add("x=0,y=3,w=1,h=3",r);
+        card.add("x=3,y=3,w=1,h=3",g);
+
+
 
         ClockWorker.addTask(sc.moveSprites());
-
-
-
-        //card.add("b", sc);
-
-
-
+        ClockWorker.addTask(r.moveSprites());
+        ClockWorker.addTask(g.moveSprites());
 
         bouncingsprite = new BouncingSprite(sc.getScene(), sc);
+        red = new Red(r.getScene(), r);
+        gary = new Gary(g.getScene(), g);
+        //gary.rotate(3.14159);
+
+
 
 
         //test
@@ -67,7 +76,13 @@ public class SplashScreen {
 
         JLabel title = new JLabel("Purple Version");
 
-        title.setFont(font.deriveFont(Font.BOLD, 25));
+        title.setFont(font.deriveFont(Font.BOLD, 50));
+        title.setForeground(Color.MAGENTA);
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setHorizontalAlignment(0);
+
+        card.add( "x=1,y=3,w=2,h=1", title);
 
         //card.add("m", title);
 
