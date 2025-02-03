@@ -1,9 +1,10 @@
 import Sprites.BouncingSprite;
 import basicgraphics.*;
+import basicgraphics.images.BackgroundPainter;
+import basicgraphics.images.Picture;
 import basicgraphics.sounds.ReusableClip;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,17 +26,20 @@ public class Menu {
     private Gary gary;
     private BouncingSprite bouncingsprite;
 
-    private Card saveCard;
 
-    private SpriteComponent savedsc;
-
-
+    private Scene scene;
+    private Scene saveScene;
 
 
 
 
 
-    final ReusableClip titleClip = new ReusableClip("title.wav");
+
+
+
+
+    final ReusableClip titleClip = new ReusableClip("title3.wav");
+    final ReusableClip buttonClip = new ReusableClip("button1.wav");
 
     public Menu(BasicFrame frame, GameScreen gs) {
         card = frame.getCard();
@@ -43,10 +47,8 @@ public class Menu {
         this.r = new SpriteComponent();
         this.g = new SpriteComponent();
 
-
-        saveCard = frame.getCard();
-        this.savedsc = new SpriteComponent();
-
+        scene=this.sc.getScene();
+        saveScene= sc.createScene();
 
         initializeMenu();
         this.gs = gs;
@@ -59,7 +61,7 @@ public class Menu {
     private void initializeMenu() {
 
         ClockWorker.initialize(33);
-        titleClip.playOverlapping();
+        titleClip.loop();
 
 
         BasicLayout blayout = new BasicLayout();
@@ -122,14 +124,23 @@ public class Menu {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
+                buttonClip.playOverlapping();
+                //optimally shouldn't need to do all this. will figure out eventually
+                //*
+                sc.remove(startButton);
+                sc.remove(g);
+                sc.remove(r);
+                sc.remove(title);
+                //*/
 
-                BasicLayout blayout1 = new BasicLayout();
-                card.remove(sc);
-                card.add(savedsc);
-                savedsc.setLayout(blayout1);
-                card.showCard();
-                savedsc.requestFocus();
-                ClockWorker.addTask(savedsc.moveSprites());
+                sc.swapScene(saveScene);
+
+                Picture white = new Picture("white.jpg");
+                white.setBackground(Color.white);
+                //white.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+
+                saveScene.setPainter(new BackgroundPainter( white));
+                sc.repaint();
 
 
                 //gs.show();
@@ -141,7 +152,6 @@ public class Menu {
     private void initializeSelSave(){
         ClockWorker.initialize(33);
         BasicLayout blayout1 = new BasicLayout();
-        saveCard.setLayout(blayout1);
 
 
     }
