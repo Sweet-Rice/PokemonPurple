@@ -1,18 +1,16 @@
 import basicgraphics.BasicFrame;
 import basicgraphics.Card;
-import basicgraphics.ClockWorker;
-import basicgraphics.SpriteComponent;
 
 public class GameManager {
     private final BasicFrame frame;
-    private final SplashScreen splashScreen;
+    private final Menu splashScreen;
     private final GameScreen gameScreen;
 
     public GameManager(BasicFrame frame) {
         this.frame = frame;
 
         this.gameScreen = new GameScreen(frame);
-        this.splashScreen = new SplashScreen(frame, gameScreen);
+        this.splashScreen = new Menu(frame, gameScreen);
         splashScreen.card.showCard();
 
     }

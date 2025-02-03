@@ -9,6 +9,8 @@ import basicgraphics.*;
 import basicgraphics.images.Picture;
 
 import java.awt.*;
+import java.time.Clock;
+import java.util.TimerTask;
 
 /**
  *
@@ -33,6 +35,16 @@ public class BouncingSprite extends Sprite {
         setVelY(10);
         setX(150);
         setY(-200);
+        final int steps = 25;
+       ClockWorker.addTask(new Task(steps) {
+           @Override
+           public void run() {
+               if (iteration() == maxIteration()-1){
+                   vibrate();
+               }
+           }
+       });
+
 
 
 
@@ -59,25 +71,5 @@ public class BouncingSprite extends Sprite {
         });
     }
 
-    /**
-     * This sprite only reacts to collisions with the
-     * borders of the display region. When it does, it
-     * wraps to the other side.
-     * @param se
-     */
-    @Override
-    public void processEvent(SpriteCollisionEvent se) {
-        SpriteComponent sc = getSpriteComponent();
 
-        if (se.yhi) {
-            setVelY(-20);
-            setY(0);
-
-                vibrate();
-
-
-        }
-
-
-    }
 }
