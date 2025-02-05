@@ -126,7 +126,7 @@ public class Menu {
             public void actionPerformed(ActionEvent e){
                 buttonClip.playOverlapping();
                 //optimally shouldn't need to do all this. will figure out eventually
-                //*
+                ///*
                 sc.remove(startButton);
                 sc.remove(g);
                 sc.remove(r);
@@ -134,22 +134,16 @@ public class Menu {
                 //*/
 
                 sc.swapScene(saveScene);
-
-                Picture white = new Picture("white.jpg");
-                white.setBackground(Color.white);
-                //white.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
-                saveScene.setPainter(new BackgroundPainter( white));
-                sc.repaint();
-
-
-                //gs.show();
-                ClockWorker.initialize(7);
+                initializeSaveSc();
             }
         });
     }
 
-    private void initializeSelSave(){
+    private void initializeSaveSc(){
+        Picture white = new Picture("white.jpg");
+        white.setBackground(Color.white);
+        saveScene.setPainter(new BackgroundPainter( white));
+
         ClockWorker.initialize(33);
         BasicLayout blayout1 = new BasicLayout();
 
