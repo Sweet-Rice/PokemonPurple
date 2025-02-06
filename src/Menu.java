@@ -1,4 +1,5 @@
 import Sprites.BouncingSprite;
+import Sprites.Letter;
 import Sprites.SaveSprite;
 import basicgraphics.*;
 import basicgraphics.images.BackgroundPainter;
@@ -34,7 +35,7 @@ public class Menu {
 
     private Scene scene;
     private Scene saveScene;
-
+private Letter[][] letter;
 
 
 
@@ -100,7 +101,9 @@ public class Menu {
 
         red = new Red(r.getScene(), r);
         gary = new Gary(g.getScene(), g);
-        
+        //letter = new Letter(sc.getScene(),0,0);
+
+
 
 
 

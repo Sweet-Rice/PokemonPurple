@@ -16,13 +16,14 @@ public class SaveSprite extends Sprite {
     public SaveSprite(Scene sc, SpriteComponent scw) {
         super(sc);
         this.scw = scw;
-        initialPic = new Picture("save.png");
+        initialPic = new Picture("frame500x500.png");
         setPicture(initialPic);
         Dimension d = sc.getSize();
         setY(d.getHeight()/15);
         setX(d.getWidth()/2);
 
         lh = new LetterHandler(getX(), getY(), getWidth(), getHeight(), scw);
+        lh.setText("erm What the Sigma!?_");
 
 
     }

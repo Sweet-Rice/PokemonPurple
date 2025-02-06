@@ -1,34 +1,53 @@
 package Sprites;
 
+import basicgraphics.BasicFrame;
 import basicgraphics.Scene;
 import basicgraphics.Sprite;
 import basicgraphics.images.Picture;
 
 import java.awt.*;
 
+
+
 public class Letter extends Sprite {
+    Letter[][] grid;
+    private static Picture initPic = new Picture("a.png");
 
     private Picture picture;
 
-public boolean isreal = false;
+    public boolean empty = true;
 
 
 
 
 
-    public Letter(Scene sc) {
+    public Letter(Scene sc, int x, int y) {
         super(sc);
-        //initialPic = new Picture("frame500x500.png");
-        //setPicture(initialPic);
+
         Dimension d = sc.getSize();
-        setY(d.getHeight()/15);
-        setX(d.getWidth()/2);
-
-        picture = new Picture("a.png");
+        setY(40+(d.getHeight()/15)+(y*27));
+        setX(40+(d.getWidth()/2)+(x*24));
+        setDrawingPriority(10);
+        picture = initPic;
         setPicture(picture);
-
+        //setPicture(makeTile(true));
 
     }
+
+
+
+    private static Picture makeTile(boolean lit) {
+        Image im = BasicFrame.createImage(24, 27);
+        Graphics g = im.getGraphics();
+
+        g.setColor(Color.RED);
+        g.fillRect(0, 0, 24, 27);
+
+        g.setColor(lit ? Color.WHITE : Color.BLACK);
+        g.fillRect(1, 1, 24 - 2, 27 - 2);
+        return new Picture(im);
+    }
+
     public void setLetter(String character) {
 
         switch (character) {
@@ -55,32 +74,32 @@ public boolean isreal = false;
             case "@" ->picture =new Picture("@.png");
             case "^" ->picture =new Picture("^.png");
             case "_" ->picture =new Picture("_.png");
-            case "A" ->picture =new Picture("A.png");
-            case "B" ->picture =new Picture("B.png");
-            case "C" ->picture =new Picture("C.png");
-            case "D" ->picture =new Picture("D.png");
-            case "E" ->picture =new Picture("E.png");
-            case "F" ->picture =new Picture("F.png");
-            case "G" ->picture =new Picture("G.png");
-            case "H" ->picture =new Picture("H.png");
-            case "I" ->picture =new Picture("I.png");
-            case "J" ->picture =new Picture("J.png");
-            case "K" ->picture =new Picture("K.png");
-            case "L" ->picture =new Picture("L.png");
-            case "M" ->picture =new Picture("M.png");
-            case "N" ->picture =new Picture("N.png");
-            case "O" ->picture =new Picture("O.png");
-            case "P" ->picture =new Picture("P.png");
-            case "Q" ->picture =new Picture("Q.png");
-            case "R" ->picture =new Picture("R.png");
-            case "S" ->picture =new Picture("S.png");
-            case "T" ->picture =new Picture("T.png");
-            case "U" ->picture =new Picture("U.png");
-            case "V" ->picture =new Picture("V.png");
-            case "W" ->picture =new Picture("W.png");
-            case "X" ->picture =new Picture("X.png");
-            case "Y" ->picture =new Picture("Y.png");
-            case "Z" ->picture =new Picture("Z.png");
+            case "A" ->picture =new Picture("capA.png");
+            case "B" ->picture =new Picture("capB.png");
+            case "C" ->picture =new Picture("capC.png");
+            case "D" ->picture =new Picture("capD.png");
+            case "E" ->picture =new Picture("capE.png");
+            case "F" ->picture =new Picture("capF.png");
+            case "G" ->picture =new Picture("capG.png");
+            case "H" ->picture =new Picture("capH.png");
+            case "I" ->picture =new Picture("capI.png");
+            case "J" ->picture =new Picture("capJ.png");
+            case "K" ->picture =new Picture("capK.png");
+            case "L" ->picture =new Picture("capL.png");
+            case "M" ->picture =new Picture("capM.png");
+            case "N" ->picture =new Picture("capN.png");
+            case "O" ->picture =new Picture("capO.png");
+            case "P" ->picture =new Picture("capP.png");
+            case "Q" ->picture =new Picture("capQ.png");
+            case "R" ->picture =new Picture("capR.png");
+            case "S" ->picture =new Picture("capS.png");
+            case "T" ->picture =new Picture("capT.png");
+            case "U" ->picture =new Picture("capU.png");
+            case "V" ->picture =new Picture("capV.png");
+            case "W" ->picture =new Picture("capW.png");
+            case "X" ->picture =new Picture("capX.png");
+            case "Y" ->picture =new Picture("capY.png");
+            case "Z" ->picture =new Picture("capZ.png");
             case "a" ->picture =new Picture( "a.png");
             case "b" ->picture =new Picture( "b.png");
             case "c" ->picture =new Picture( "c.png");
@@ -134,7 +153,7 @@ public boolean isreal = false;
         }
 
         setPicture(picture);
-        isreal = true;
+        empty = false;
     }
 
 
