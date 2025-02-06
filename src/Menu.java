@@ -62,6 +62,8 @@ public class Menu {
         scene=sc.getScene();
         saveScene= sc.createScene();
 
+
+
         //sc.swapScene(scene);
 
         initializeMenu();

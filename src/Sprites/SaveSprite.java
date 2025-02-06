@@ -22,7 +22,7 @@ public class SaveSprite extends Sprite {
         setY(d.getHeight()/15);
         setX(d.getWidth()/2);
 
-        //lh = new LetterHandler(getX(), getY(), getWidth(), getHeight(), scw);
+        lh = new LetterHandler(getX(), getY(), getWidth(), getHeight(), scw);
 
 
     }

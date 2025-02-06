@@ -100,8 +100,10 @@ public class LetterHandler {
         int counter = 0;
        for (int i = 0; i < gridHeight; i++) {
            for (int j = 0; j < gridWidth; j++) {
-               if (grid[i][j].isreal==false) {
-                   grid[i][j].setLetter(Character.toString(text.indexOf(counter++)));
+               if (!grid[i][j].isreal &&left--!=0) {
+                   grid[i][j].setLetter(Character.toString(text.charAt(counter)));
+               }else{
+                   return;
                }
            }
        }
