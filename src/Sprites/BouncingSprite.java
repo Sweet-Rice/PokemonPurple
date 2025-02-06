@@ -12,21 +12,11 @@ import java.awt.*;
 import java.time.Clock;
 import java.util.TimerTask;
 
-/**
- *
- * @author sbrandt
- */
+
 public class BouncingSprite extends Sprite {
     public Picture initialPic;
-    public final static double FAC = .9;
     public SpriteComponent scw;
-    /**
-     * Initializes the sprite, setting its picture,
-     * position, and speed. It also adds it to the
-     * SpriteComponent.
-     *
-     * @param sc
-     */
+
     public BouncingSprite(Scene sc, SpriteComponent scw) {
         super(sc);
         initialPic = new Picture("title.png");

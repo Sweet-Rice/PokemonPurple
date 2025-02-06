@@ -1,4 +1,5 @@
 import Sprites.BouncingSprite;
+import Sprites.SaveSprite;
 import basicgraphics.*;
 import basicgraphics.images.BackgroundPainter;
 import basicgraphics.images.Picture;
@@ -21,10 +22,14 @@ public class Menu {
     private SpriteComponent r;
     private SpriteComponent g;
 
-
+//menu part
     private Red red;
     private Gary gary;
     private BouncingSprite bouncingsprite;
+
+//save part
+    private SaveSprite saveSprite;
+    //issue inside the sprite
 
 
     private Scene scene;
@@ -43,12 +48,21 @@ public class Menu {
 
     public Menu(BasicFrame frame, GameScreen gs) {
         card = frame.getCard();
-        this.sc = new SpriteComponent();
+        this.sc = new SpriteComponent(){
+        @Override
+            public void paintBackground(Graphics g) {
+                Dimension d = getSize();
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, d.width, d.height);
+            }
+        };
         this.r = new SpriteComponent();
         this.g = new SpriteComponent();
 
-        scene=this.sc.getScene();
+        scene=sc.getScene();
         saveScene= sc.createScene();
+
+        //sc.swapScene(scene);
 
         initializeMenu();
         this.gs = gs;
@@ -125,6 +139,8 @@ public class Menu {
             @Override
             public void actionPerformed(ActionEvent e){
                 buttonClip.playOverlapping();
+
+                //titleClip.stop();
                 //optimally shouldn't need to do all this. will figure out eventually
                 ///*
                 sc.remove(startButton);
@@ -133,18 +149,22 @@ public class Menu {
                 sc.remove(title);
                 //*/
 
-                sc.swapScene(saveScene);
+
+
+
                 initializeSaveSc();
             }
         });
     }
 
     private void initializeSaveSc(){
-        Picture white = new Picture("white.jpg");
-        white.setBackground(Color.white);
-        saveScene.setPainter(new BackgroundPainter( white));
-
+        //Picture white = new Picture("white.jpg");
+        //white.setBackground(Color.white);
+        //saveScene.setPainter(new BackgroundPainter( white));
+        sc.swapScene(saveScene);
+        saveSprite = new SaveSprite(saveScene, sc);
         ClockWorker.initialize(33);
+        ClockWorker.addTask(sc.moveSprites());
         BasicLayout blayout1 = new BasicLayout();
 
 

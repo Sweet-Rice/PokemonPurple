@@ -168,6 +168,7 @@ public final class ReusableClip {
     }
 
     public synchronized void play() {
+        sourceLine.start();
         looping = false;
         enqueue(this);
     }
@@ -181,6 +182,7 @@ public final class ReusableClip {
 
     public void stop() {
         looping = false;
+        sourceLine.stop();
     }
 
     public static void testOverlapping(ReusableClip clip1, ReusableClip clip2) {
