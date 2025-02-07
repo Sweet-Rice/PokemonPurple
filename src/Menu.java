@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Menu {
-
     private GameScreen gs;
 
     public final Card card;
@@ -32,17 +31,9 @@ public class Menu {
     private SaveSprite saveSprite;
     //issue inside the sprite
 
-
     private Scene scene;
     private Scene saveScene;
-private Letter[][] letter;
-
-
-
-
-
-
-
+    private Letter[][] letter;
 
     final ReusableClip titleClip = new ReusableClip("title3.wav");
     final ReusableClip buttonClip = new ReusableClip("button1.wav");
@@ -63,23 +54,16 @@ private Letter[][] letter;
         scene=sc.getScene();
         saveScene= sc.createScene();
 
-
-
         //sc.swapScene(scene);
 
         initializeMenu();
         this.gs = gs;
-
-
-
-
     }
 
     private void initializeMenu() {
 
         ClockWorker.initialize(33);
         titleClip.loop();
-
 
         BasicLayout blayout = new BasicLayout();
         card.add(sc);
@@ -102,10 +86,6 @@ private Letter[][] letter;
         red = new Red(r.getScene(), r);
         gary = new Gary(g.getScene(), g);
         //letter = new Letter(sc.getScene(),0,0);
-
-
-
-
 
 
         //test

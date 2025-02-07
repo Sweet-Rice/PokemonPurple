@@ -8,6 +8,8 @@ import basicgraphics.Task;
 import basicgraphics.images.Picture;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LetterHandler {
     private final int WIDTH = 24;
@@ -40,15 +42,16 @@ public class LetterHandler {
     //should serve as the layout of the locations of the letters
 
     private SpriteComponent sc;
+
     public LetterHandler(double x, double y, double width, double height, SpriteComponent sc) {
         this.sc = sc;
-        this.x = (int)x + XYDISPLACEMENT;
-        this.y = (int)y + XYDISPLACEMENT;
-        this.width = (int)width;
-        this.height = (int)height;
+        this.x = (int) x + XYDISPLACEMENT;
+        this.y = (int) y + XYDISPLACEMENT;
+        this.width = (int) width;
+        this.height = (int) height;
 
-        gridWidth=((int)width-(2*XYDISPLACEMENT))/24;
-        gridHeight=((int)height-(2*XYDISPLACEMENT))/27;
+        gridWidth = ((int) width - (2 * XYDISPLACEMENT)) / 24;
+        gridHeight = ((int) height - (2 * XYDISPLACEMENT)) / 27;
 
 
         //organizes the grid in an array of rows. Should be easier management.
@@ -56,103 +59,132 @@ public class LetterHandler {
         initGrid();
         //setText("ee");
     }
-    public void initGrid(){
-        grid = new Letter[(int)gridHeight][(int)gridWidth];
+
+    public void initGrid() {
+        grid = new Letter[(int) gridHeight][(int) gridWidth];
         for (int i = 0; i < gridHeight; i++) {
-                grid[i] = new Letter[gridWidth];
+            grid[i] = new Letter[gridWidth];
             for (int j = 0; j < gridWidth; j++) {
-                grid[i][j] = new Letter(sc.getScene(),j,i);
+                grid[i][j] = new Letter(sc.getScene(), j, i);
 
                 //grid[i][j].setX(xLoc);
-               // grid[i][j].setY(yLoc);
+                // grid[i][j].setY(yLoc);
                 //xLoc += 24;
 
             }
         }
     }
+    private ArrayList<String> wordQueue;
     public void setText(String textIn) {
-        //this.remainingText = textIn;
-        Picture white = new Picture("capA.png");
-        int length = textIn.length();
+        String[] parsed = textIn.split("\\s+");
+        this.wordQueue = new ArrayList<>(Arrays.asList(parsed));
+    }
 
-        int emptyTiles = 0;
+    public String extractFirst(){
+        if (wordQueue.isEmpty()) return "";
+
+        return wordQueue.get(0);
+    }
+    public void appendText(String textIn) {
+        String[] parsed = textIn.split("\\s+");
+        wordQueue.addAll(Arrays.asList(parsed));
+
+    }
+    public int checkSpace(int i) {
+        int count = 0;
+        for (int j = 0; j < gridWidth; j++) {
+            if (grid[i][j].empty){
+                count++;
+            }
+
+        }
+       return count;
+
+    }
+/*
+    public void showString() {
+        System.out.println(wordQueue.toString());
+        for (int i = 0; i < wordQueue.size(); i++) {
+            String word = extractFirst();
+            System.out.println(word);
+           for (int j = 0; j < gridHeight; j++) {
+               int empty = checkSpace(j);
+               if (empty >= word.length()) {
+                   int l = 0;
+                   for (int k = 0; k < gridWidth; k++) {
+                       if (grid[j][k].empty && l < word.length()) {
+                           grid[j][k].setLetter(Character.toString(word.charAt(l)));
+                           grid[j][k].empty = false;
+                           l++;
+                       }
+                       if (l == word.length() && grid[j][k + 1].empty) {
+                           grid[j][k + 1].setLetter(" ");
+                           System.out.println(wordQueue.toString());
+                           break;
+                       }
+                   }
+               }
+           }
+            System.out.println("In word: " + word + ", removing " + wordQueue.get(0));
+            wordQueue.remove(0);
+//        }
+
+    }
+
+ */
+    public void showString(){
+        while (!wordQueue.isEmpty()) {
+            printWord();
+        }
+    }
+
+   public void printWord(){
+       String word = wordQueue.getFirst();
+       System.out.println(word);
+       int count = 0;
+       if((gridWidth-1)-getEmptyCol()<word.length()){
+           for (int i = getEmptyCol(); i < gridWidth; i++) {
+               grid[getEmptyRow()][i].setLetter(" ");
+           }
+       }else{
+           int space = getEmptyCol();
+           for (int i = getEmptyCol(); i < gridWidth; i++) {
+               if (grid[getEmptyRow()][i].empty&&count<word.length()){
+
+                   grid[getEmptyRow()][i].setLetter(Character.toString(word.charAt(count++)));
+
+                    space++;
+
+               }
+           }
+           if (checkSpace(getEmptyRow())>0){
+               grid[getEmptyRow()][getEmptyCol()].setLetter(" ");
+           }
+           wordQueue.removeFirst();
+       }
+
+   }
+
+
+    public int getEmptyRow(){
         for (int i = 0; i < gridHeight; i++) {
             for (int j = 0; j < gridWidth; j++) {
-                if (grid[i][j].empty) {
-                    emptyTiles++;
-                    System.out.println(emptyTiles);
+                if (grid[i][j].empty){
+                    return i;
                 }
             }
-
         }
-        int max = 0;
-        if (emptyTiles > textIn.length()) {
-            max = textIn.length();
-        }
-        else { max = emptyTiles; }
+        return -1;
 
-        //currently working for all text except \n
-        text = textIn.substring(0, max);
-        remainingText = textIn.substring(max);
-
-        System.out.println(text);
-        System.out.println(remainingText);
-
-        showString();
     }
-    public void showString(){
-        int index = 0;
-        int lineindex = 0;
-        String line = "";
+    public int getEmptyCol(){
         for (int i = 0; i < gridHeight; i++) {
-            String fromPrevLine = "";
-
-            //this block sh
-            if (lineindex < text.length()) {
-
-
-                //this block retrieves the string that needs to be sent to the next line.
-                //finalSpaceindex is the index of line that is the last space.
-                line = text.substring(lineindex, gridWidth);
-                //debug.
-                System.out.println(line);
-                //boolean Sent = false;
-                String wrap = line;
-                int spaceindex = 0;
-                int loopblocker = -1;
-                int finalSpaceindex = 0;
-                while (spaceindex != -1) {
-                    loopblocker = spaceindex;
-                    spaceindex = wrap.indexOf(" ");
-
-                    System.out.println(spaceindex);
-                    if (spaceindex != -1) {
-                        finalSpaceindex += spaceindex + 1;
-                        wrap = wrap.substring(spaceindex + 1);
-
-                        System.out.println(wrap + finalSpaceindex);
-                    }
-
-
-                }
-                System.out.println(line.substring(finalSpaceindex));
-                fromPrevLine = line.substring(finalSpaceindex);
-            }
-
-
-                //text = fromPrevLine + text;
-                //prints literally everything with no line wrapping
-                for (int j = 0; j < gridWidth&&j<text.length(); j++) {
-                    if (index < text.length()) {
-                        grid[i][j].setLetter(Character.toString(text.charAt(index++)));
-                    }
-
+            for (int j = 0; j < gridWidth; j++) {
+                if (grid[i][j].empty){
+                    return j;
                 }
             }
-
-            lineindex+=gridWidth;
         }
+        return -1;
     }
-
-
-
+}

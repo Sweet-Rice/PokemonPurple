@@ -23,7 +23,11 @@ public class SaveSprite extends Sprite {
         setX(d.getWidth()/2);
 
         lh = new LetterHandler(getX(), getY(), getWidth(), getHeight(), scw);
-        lh.setText("erm What the Sigma!?_");
+        lh.setText("Erm what the sigma? W Rizz? More like W Fizz cuz im lwk untargettable, people come and they go some people may stay with you though i am all alone tonight and i kept on asking myself questions some say that there was a time ashe");
+
+
+
+        lh.showString();
 
 
     }
