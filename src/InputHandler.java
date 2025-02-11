@@ -1,5 +1,5 @@
-import Sprites.Falcon;
-import Sprites.Plasma;
+import MenuSprites.Falcon;
+import MenuSprites.Plasma;
 import basicgraphics.Card;
 import basicgraphics.ClockWorker;
 import basicgraphics.SpriteComponent;

@@ -1,6 +1,6 @@
 
 
-import Sprites.Falcon;
+import MenuSprites.Falcon;
 import basicgraphics.*;
 import basicgraphics.images.Painter;
 
@@ -10,19 +10,27 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class GameScreen {
-    private final Card card;
+    public final Card card;
     private final SpriteComponent sc;
     InputHandler inputHandler;
+    GameManager gm;
+    Falcon falcon;
 
 
-    public GameScreen(BasicFrame frame) {
+    public GameScreen(BasicFrame frame, GameManager gm) {
+        this.gm = gm;
         card = frame.getCard();
         sc = new SpriteComponent();
-        final Falcon falcon = new Falcon(sc.getScene(), sc);
+        BasicLayout newLayout = new BasicLayout();
+        card.setLayout(newLayout);
+        card.add("x=0,y=0,w=1,h=1", sc);
+
+        falcon = new Falcon(sc.getScene(), sc);
 
         initializeBackground();
-        setupLayout();
+        //setupLayout();
         inputHandler = new InputHandler(falcon, card);
+
         card.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke){
@@ -33,13 +41,22 @@ public class GameScreen {
 
     private void initializeBackground() {
         sc.getScene().setPainter(new StarfieldPainter());
-        card.add(sc);
+        //card.createSingletonLayout(sc);
+
+
+
+        sc.setPreferredSize(new Dimension(1000,500));
+        sc.getScene().setBackgroundSize(new Dimension(2000,2000));
+
+        //sc.getScene().setFocus(falcon);
+        sc.getScene().periodic_y = true;
+        sc.getScene().periodic_x = true;
         ClockWorker.addTask(sc.moveSprites());
     }
 
     private void setupLayout() {
-        card.setLayout(new BasicLayout());
-        card.add("x=0,y=0,w=1,h=1", sc);
+        //card.setLayout(new BasicLayout());
+        //card.add("x=0,y=0,w=1,h=1", sc);
     }
 
     public void show() {
@@ -80,5 +97,7 @@ public class GameScreen {
             }
 
         }
+
+
     }
 }

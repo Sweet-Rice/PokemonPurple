@@ -9,14 +9,19 @@ public class GameManager {
     public GameManager(BasicFrame frame) {
         this.frame = frame;
 
-        this.gameScreen = new GameScreen(frame);
-        this.splashScreen = new Menu(frame, gameScreen);
-        splashScreen.card.showCard();
+        this.gameScreen = new GameScreen(frame, this);
+        this.splashScreen = new Menu(frame, this);
+        switchSplash();
 
     }
 
-    public void switchCard(Card card) {
-
+    public void switchSplash() {
+        splashScreen.card.showCard();
+        splashScreen.card.requestFocus();
+    }
+    public void switchGame() {
+        gameScreen.card.showCard();
+        gameScreen.card.requestFocus();
     }
 
 }

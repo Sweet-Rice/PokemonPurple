@@ -1,15 +1,10 @@
-import Sprites.BouncingSprite;
-import Sprites.Letter;
-import Sprites.SaveSprite;
+import MenuSprites.*;
 import basicgraphics.*;
-import basicgraphics.images.BackgroundPainter;
-import basicgraphics.images.Picture;
 import basicgraphics.sounds.ReusableClip;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -36,9 +31,12 @@ public class Menu {
     private Letter[][] letter;
 
     final ReusableClip titleClip = new ReusableClip("title3.wav");
-    final ReusableClip buttonClip = new ReusableClip("button1.wav");
+    //final ReusableClip buttonClip = new ReusableClip("button1.wav");
 
-    public Menu(BasicFrame frame, GameScreen gs) {
+    GameManager gr;
+
+
+    public Menu(BasicFrame frame, GameManager gr) {
         card = frame.getCard();
         this.sc = new SpriteComponent(){
         @Override
@@ -57,7 +55,10 @@ public class Menu {
         //sc.swapScene(scene);
 
         initializeMenu();
-        this.gs = gs;
+        //this.gs = gs;
+
+        this.gr = gr;
+
     }
 
     private void initializeMenu() {
@@ -123,7 +124,7 @@ public class Menu {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                buttonClip.playOverlapping();
+                //  buttonClip.playOverlapping();
 
                 //titleClip.stop();
                 //optimally shouldn't need to do all this. will figure out eventually
@@ -136,10 +137,12 @@ public class Menu {
 
 
 
-
-                initializeSaveSc();
+                gr.switchGame();
+                //initializeSaveSc();
             }
         });
+
+
     }
 
     private void initializeSaveSc(){
