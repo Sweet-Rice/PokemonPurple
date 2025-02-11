@@ -38,4 +38,9 @@ public class PalletTown implements GlobalFunc{
         //spawn in pokecenter, automatically interact with nurse joy. Consider
         //making healing a static method, since its the same everywhere
     }
+
+    @Override
+    public void switchScene(Scene scene) {
+
+    }
 }
