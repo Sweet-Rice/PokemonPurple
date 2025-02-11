@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Menu {
-    private GameScreen gs;
+    //private GameScreen gs;
 
     public final Card card;
 
@@ -31,12 +31,12 @@ public class Menu {
 
     private Scene scene;
     private Scene saveScene;
-    private Letter[][] letter;
+
 
     final ReusableClip titleClip = new ReusableClip("title3.wav");
     //final ReusableClip buttonClip = new ReusableClip("button1.wav");
 
-    GameManager gr;
+    GameManager gm;
 
 
     public Menu(BasicFrame frame, GameManager gr) {
@@ -60,7 +60,7 @@ public class Menu {
         initializeMenu();
         //this.gs = gs;
 
-        this.gr = gr;
+        this.gm = gr;
 
     }
 
@@ -140,7 +140,7 @@ public class Menu {
 
 
 
-                gr.switchGame();
+                gm.switchGame();
                 //initializeSaveSc();
             }
         });

@@ -10,16 +10,9 @@ import java.awt.*;
 
 
 public class Letter extends Sprite {
-    Letter[][] grid;
     private static Picture initPic = new Picture("a.png");
-
     private Picture picture;
-
     public boolean empty = true;
-
-
-
-
 
     public Letter(Scene sc, int x, int y) {
         super(sc);
