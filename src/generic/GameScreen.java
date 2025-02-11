@@ -1,6 +1,6 @@
+package generic;
 
-
-import MenuSprites.Falcon;
+import menuWorld.Falcon;
 import basicgraphics.*;
 import basicgraphics.images.Painter;
 

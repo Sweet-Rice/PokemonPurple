@@ -1,5 +1,7 @@
-import MenuSprites.Falcon;
-import MenuSprites.Plasma;
+package generic;
+
+import menuWorld.Falcon;
+import menuWorld.Plasma;
 import basicgraphics.Card;
 import basicgraphics.ClockWorker;
 import basicgraphics.SpriteComponent;

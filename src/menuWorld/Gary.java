@@ -1,4 +1,4 @@
-package MenuSprites;
+package menuWorld;
 
 import basicgraphics.Scene;
 import basicgraphics.Sprite;
@@ -8,7 +8,7 @@ import basicgraphics.images.Picture;
 
 import java.awt.*;
 
-public class Red extends Sprite {
+public class Gary extends Sprite {
     public Picture initialPic;
 
     /**
@@ -18,14 +18,18 @@ public class Red extends Sprite {
      *
      * @param sc
      */
-    public Red(Scene sc, SpriteComponent scw) {
+    public Gary(Scene sc, SpriteComponent scw) {
         super(sc);
-        initialPic = new Picture("red.png");
+        initialPic = new Picture("gary.png");
         setPicture(initialPic);
         Dimension d = sc.getSize();
-        setX(-200);
+
+        setX(200);
         setY(25);
-        setVel(10, 0);
+        setVel(-10,0);
+        freezeOrientation = true;
+
+        //setVel(getVelX()*-1,0);
     }
 
     /**
@@ -38,7 +42,7 @@ public class Red extends Sprite {
     public void processEvent(SpriteCollisionEvent se) {
         SpriteComponent sc = getSpriteComponent();
 
-        if (se.xhi) {
+        if (se.xlo) {
             setVel(0,0);
         }
 

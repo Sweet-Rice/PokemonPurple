@@ -1,6 +1,9 @@
-import MenuSprites.*;
+package menuWorld;
+
 import basicgraphics.*;
 import basicgraphics.sounds.ReusableClip;
+import generic.GameManager;
+import generic.GameScreen;
 
 import javax.swing.*;
 import java.awt.*;

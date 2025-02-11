@@ -1,4 +1,4 @@
-package MenuSprites;
+package menuWorld;
 
 import basicgraphics.Scene;
 import basicgraphics.Sprite;

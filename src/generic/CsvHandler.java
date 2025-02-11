@@ -1,6 +1,7 @@
+package generic;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CsvHandler {
     private final String DATA_FILE;

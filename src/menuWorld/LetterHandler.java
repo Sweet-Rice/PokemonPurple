@@ -1,5 +1,5 @@
 
-package MenuSprites;
+package menuWorld;
 
 import basicgraphics.SpriteComponent;
 

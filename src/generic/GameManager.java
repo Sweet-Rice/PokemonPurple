@@ -1,5 +1,7 @@
+package generic;
+
 import basicgraphics.BasicFrame;
-import basicgraphics.Card;
+import menuWorld.Menu;
 
 public class GameManager {
     private final BasicFrame frame;
