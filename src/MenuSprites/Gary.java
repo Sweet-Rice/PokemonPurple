@@ -27,6 +27,8 @@ public class Gary extends Sprite {
         setX(200);
         setY(25);
         setVel(-10,0);
+        freezeOrientation = true;
+
         //setVel(getVelX()*-1,0);
     }
 
