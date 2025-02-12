@@ -24,16 +24,16 @@ public class Overworld {
         this.sc = new SpriteComponent();
         card.createSingletonLayout(sc);
 
-        palletTown = new PalletTown(sc);ddTask(sc.moveSprites());
-
-
-
+        palletTown = new PalletTown(sc);
         //GlobalFunc global = new PalletTown(sc);
         //global.switchScene(outside);
 
         sc.swapScene(palletTown.outside);
         ClockWorker.initialize(33);
-        ClockWorker.a
+        ClockWorker.addTask(sc.moveSprites());
+
+
+
 
 
 
