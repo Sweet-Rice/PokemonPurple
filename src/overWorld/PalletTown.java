@@ -4,11 +4,13 @@ import basicgraphics.Scene;
 import basicgraphics.Sprite;
 import basicgraphics.SpriteComponent;
 
+import java.awt.*;
+
 public class PalletTown implements GlobalFunc{
 
     private SpriteComponent sc;
 
-    private Scene outside;
+    public Scene outside;
     private Scene playerHouse;
     private Scene oakLab;
     private Scene garyHouse;
@@ -20,6 +22,16 @@ public class PalletTown implements GlobalFunc{
         this.oakLab = sc.createScene();
         this.garyHouse = sc.createScene();
 
+        outside.setBackgroundSize(new Dimension(800,400));
+
+        //everything below is just testing stuff
+        TileHandler tileHandler = new TileHandler(outside) {
+            @Override
+            void initTile(int y, int x) {
+                grid[y][x] = new OutsideTile(outside,1, true, y,x);
+            }
+
+        };
 
     }
 

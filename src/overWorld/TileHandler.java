@@ -10,14 +10,15 @@ public abstract class TileHandler {
 
     private int x, y;
 
-    private AbstractTile[][] grid;
+    protected AbstractTile[][] grid;
     private int gridWidth, gridHeight;
     Dimension d;
 
-    public TileHandler(int x, int y, Scene scene) {
+    public TileHandler( Scene scene) {
         d = scene.getSize();
         this.gridWidth = d.width / SIZE;
         this.gridHeight = d.height / SIZE;
+        System.out.println("tilehandler created");
 
         initGrid();
 
@@ -28,9 +29,9 @@ public abstract class TileHandler {
         for (int y = 0; y < gridHeight; y++) {
             grid[y] = new AbstractTile[gridWidth];
             for (int x = 0; x < gridWidth; x++) {
-                initTile();
+                initTile(y, x);
             }
         }
     }
-    abstract void initTile();
+    abstract void initTile(int y, int x);
 }

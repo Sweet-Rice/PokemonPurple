@@ -7,7 +7,7 @@ import basicgraphics.images.Picture;
 import java.awt.*;
 
 public abstract class AbstractTile extends Sprite {
-    protected static Picture initPic = new Picture("outside_00.png");
+    protected static Picture initPic = new Picture("outside_01.png");
     protected Picture picture;
     public boolean walkable = true;
     protected Scene sc;
@@ -23,6 +23,7 @@ public abstract class AbstractTile extends Sprite {
         setY(y*16);
         setX(x*16);
         setTile();
+        System.out.println("created tile");
     }
 
     //should take in the int type and set a picture for tile

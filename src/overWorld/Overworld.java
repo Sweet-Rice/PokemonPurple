@@ -1,9 +1,6 @@
 package overWorld;
 
-import basicgraphics.BasicFrame;
-import basicgraphics.Card;
-import basicgraphics.Scene;
-import basicgraphics.SpriteComponent;
+import basicgraphics.*;
 import generic.GameManager;
 import generic.GameScreen;
 
@@ -25,10 +22,18 @@ public class Overworld {
         this.gm = gm;
         card = frame.getCard();
         this.sc = new SpriteComponent();
-        palletTown = new PalletTown(sc);
+        card.createSingletonLayout(sc);
+
+        palletTown = new PalletTown(sc);ddTask(sc.moveSprites());
+
+
+
         //GlobalFunc global = new PalletTown(sc);
+        //global.switchScene(outside);
 
-
+        sc.swapScene(palletTown.outside);
+        ClockWorker.initialize(33);
+        ClockWorker.a
 
 
 
