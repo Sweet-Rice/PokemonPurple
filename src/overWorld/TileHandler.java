@@ -5,41 +5,44 @@ import basicgraphics.images.Picture;
 
 import java.awt.*;
 
-public class TileHandler {
+public abstract class TileHandler {
     private final int SIZE = 16;
 
-    private Picture picture;
-    private int x, y;
+    protected Picture picture;
+    protected int x, y;
 
     protected NotSoAbstractTile[][] grid;
     private int gridWidth, gridHeight;
     private Scene scene;
     Dimension d;
+    Class c;
 
     public TileHandler( Scene scene) {
         d = scene.getBackgroundSize();
         this.gridWidth = d.width / SIZE;
         this.gridHeight = d.height / SIZE;
-        System.out.println("tilehandler created");
+        //System.out.println("tilehandler created");
         this.scene = scene;
 
         initGrid();
+
+
 
     }
 
     public void initGrid() {
         grid = new NotSoAbstractTile[gridHeight][gridWidth];
-        for (int y = 0; y < gridHeight; y++) {
+        for ( y = 0; y < gridHeight; y++) {
             grid[y] = new NotSoAbstractTile[gridWidth];
-            for (int x = 0; x < gridWidth; x++) {
-                grid[y][x] = new NotSoAbstractTile(scene, 2, true, y, x){
+            for ( x = 0; x < gridWidth; x++) {
+                //grid[y][x] = new NotSoAbstractTile(scene, 2, true, y, x){
+                initTile(grid[y][x]);
 
-                };
+                //grid[y][x].setPicture(picture);
+                //};
             }
         }
     }
 
-    public void initTile(Picture picture) {
-
-    }
+    abstract void initTile(NotSoAbstractTile tile);
 }

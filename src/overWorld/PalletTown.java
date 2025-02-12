@@ -30,8 +30,14 @@ public class PalletTown implements GlobalFunc{
         System.out.println(x);
 
         //everything below is just testing stuff
-        TileHandler tileHandler = new TileHandler(outside);
-        tileHandler.initTile(new Picture("outside_01.png"));
+        TileHandler outsideTileHandler = new TileHandler(outside) {
+
+            @Override
+            void initTile(NotSoAbstractTile tile) {
+                tile = new OutsideTile(outside, 1, true, this.x, this.y);
+            }
+        };
+        //tileHandler.initTile(Class NotSoAbstractTile);
         System.out.println("Pallet Town");
 
 
