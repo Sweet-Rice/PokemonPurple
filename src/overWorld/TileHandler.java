@@ -11,7 +11,7 @@ public abstract class TileHandler {
     protected Picture picture;
     protected int x, y;
 
-    protected NotSoAbstractTile[][] grid;
+    public NotSoAbstractTile[][] grid;
     private int gridWidth, gridHeight;
     private Scene scene;
     Dimension d;
@@ -37,13 +37,21 @@ public abstract class TileHandler {
             for ( x = 0; x < gridWidth; x++) {
                 //grid[y][x] = new NotSoAbstractTile(scene, 2, true, y, x){
                 grid[y][x] = initTile(grid[y][x]);
+                //grid[y][x].setDrawingPriority(0);
                 //grid[y][x].setPicture(new Picture("outsidefloor_02.png"));
                 //grid[y][x].setPicture(picture);
                 //};
             }
         }
     }
+    public abstract NotSoAbstractTile initTile(NotSoAbstractTile tile);
+    public abstract void setTilePicture(Picture picture, int x, int y);
 
-    abstract NotSoAbstractTile initTile(NotSoAbstractTile tile);
-    abstract void setTilePicture(Picture picture, int x, int y);
+
+    public int getGridHeight() {
+        return gridHeight;
+    }
+    public int getGridWidth() {
+        return gridWidth;
+    }
 }

@@ -90,37 +90,7 @@ public class LetterHandler {
        return count;
 
     }
-/*
-    public void showString() {
-        System.out.println(wordQueue.toString());
-        for (int i = 0; i < wordQueue.size(); i++) {
-            String word = extractFirst();
-            System.out.println(word);
-           for (int j = 0; j < gridHeight; j++) {
-               int empty = checkSpace(j);
-               if (empty >= word.length()) {
-                   int l = 0;
-                   for (int k = 0; k < gridWidth; k++) {
-                       if (grid[j][k].empty && l < word.length()) {
-                           grid[j][k].setLetter(Character.toString(word.charAt(l)));
-                           grid[j][k].empty = false;
-                           l++;
-                       }
-                       if (l == word.length() && grid[j][k + 1].empty) {
-                           grid[j][k + 1].setLetter(" ");
-                           System.out.println(wordQueue.toString());
-                           break;
-                       }
-                   }
-               }
-           }
-            System.out.println("In word: " + word + ", removing " + wordQueue.get(0));
-            wordQueue.remove(0);
-//        }
 
-    }
-
- */
     public void showString(){
         while (!wordQueue.isEmpty()) {
             printWord();

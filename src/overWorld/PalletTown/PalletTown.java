@@ -1,13 +1,16 @@
-package overWorld;
+package overWorld.PalletTown;
 
 import basicgraphics.Scene;
-import basicgraphics.Sprite;
 import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
+import overWorld.GlobalFunc;
+import overWorld.NotSoAbstractTile;
+import overWorld.Overworld;
+import overWorld.TileHandler;
 
 import java.awt.*;
 
-public class PalletTown implements GlobalFunc{
+public class PalletTown implements GlobalFunc {
 
     private SpriteComponent sc;
 
@@ -15,40 +18,52 @@ public class PalletTown implements GlobalFunc{
     private Scene playerHouse;
     private Scene oakLab;
     private Scene garyHouse;
+    private Overworld overworld;
 
-    public PalletTown(SpriteComponent sc) {
+    public TileHandler outsideTileHandler;
 
+    public PalletTown(SpriteComponent sc, Overworld o) {
+        this.overworld = o;
         this.outside = sc.getScene();
         this.playerHouse = sc.createScene();
         this.oakLab = sc.createScene();
         this.garyHouse = sc.createScene();
 
-        outside.setBackgroundSize(new Dimension(1000,600));
-        //sc.setPreferredSize(new Dimension(400,200));
-        Dimension dim = outside.getSize();
-        double x = dim.getWidth();
-        System.out.println(x);
+        initOutside();
 
-        //everything below is just testing stuff
-        TileHandler palletOutsideTileHandler = new TileHandler(outside) {
+
+
+
+    }
+    private void initOutside() {
+        outside.setBackgroundSize(new Dimension(48*25,48*15));
+
+
+        outsideTileHandler = new TileHandler(outside) {
 
             @Override
-            NotSoAbstractTile initTile(NotSoAbstractTile tile) {
+            public NotSoAbstractTile initTile(NotSoAbstractTile tile) {
                 tile = new OutsideTile(outside, 1, true, this.x, this.y);
                 return tile;
             }
 
             @Override
-            void setTilePicture(Picture picture, int x, int y) {
-
+            public void setTilePicture(Picture picture, int x, int y) {
+                grid[y][x].setPicture(picture);
             }
         };
-        //tileHandler.initTile(Class NotSoAbstractTile);
+
+
+        //Below is how
         System.out.println("Pallet Town");
-        palletOutsideTileHandler.setTilePicture(new Picture("outsidefloor_00.png"), 1,1);
+        outsideTileHandler.setTilePicture(new Picture("outsidefloor_00.png"), 0,8);
 
+        /*
+        outside.setFocus(overworld.player);
+        outside.periodic_x = true;
+        outside.periodic_y = true;
 
-
+         */
     }
 
     public void enterPalletTown() {

@@ -13,6 +13,8 @@ public abstract class NotSoAbstractTile extends Sprite {
     protected Scene sc;
     protected Dimension d;
 
+
+
     protected int type;
 
     public NotSoAbstractTile(Scene sc, int type, boolean walkable, int x, int y) {
@@ -24,10 +26,13 @@ public abstract class NotSoAbstractTile extends Sprite {
         d = sc.getBackgroundSize();
         setY(y*48);
         setX(x*48);
+        setDrawingPriority(1);
         setTile();
+
         System.out.println("created tile");
         setPicture(initPic);
-        setTile();
+        //setTile();
+
     }
 
     //should take in the int type and set a picture for tile
@@ -35,5 +40,11 @@ public abstract class NotSoAbstractTile extends Sprite {
 
     }
 
+    //modify this if you want to implement ledges
+    public boolean requestMoveHere(){
+        if (walkable) {
+            return true;
+        }return  false;
+    }
 
 }
