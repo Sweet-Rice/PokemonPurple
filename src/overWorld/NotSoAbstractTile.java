@@ -22,11 +22,12 @@ public abstract class NotSoAbstractTile extends Sprite {
         this.walkable = walkable;
         this.type = type;
         d = sc.getBackgroundSize();
-        setY(y*16);
-        setX(x*16);
+        setY(y*48);
+        setX(x*48);
         setTile();
         System.out.println("created tile");
         setPicture(initPic);
+        setTile();
     }
 
     //should take in the int type and set a picture for tile

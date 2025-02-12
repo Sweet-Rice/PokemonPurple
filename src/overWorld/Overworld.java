@@ -5,6 +5,8 @@ import generic.GameManager;
 import generic.GameScreen;
 import menuWorld.Gary;
 
+import java.awt.*;
+
 public class Overworld {
 
 
@@ -23,6 +25,7 @@ public class Overworld {
         this.gm = gm;
         card = frame.getCard();
         this.sc = new SpriteComponent();
+        sc.setPreferredSize(new Dimension(800,400));
         card.createSingletonLayout(sc);
 
         palletTown = new PalletTown(sc);

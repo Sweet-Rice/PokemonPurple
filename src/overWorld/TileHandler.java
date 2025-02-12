@@ -6,7 +6,7 @@ import basicgraphics.images.Picture;
 import java.awt.*;
 
 public abstract class TileHandler {
-    private final int SIZE = 16;
+    private final int SIZE = 48;
 
     protected Picture picture;
     protected int x, y;
@@ -36,13 +36,14 @@ public abstract class TileHandler {
             grid[y] = new NotSoAbstractTile[gridWidth];
             for ( x = 0; x < gridWidth; x++) {
                 //grid[y][x] = new NotSoAbstractTile(scene, 2, true, y, x){
-                initTile(grid[y][x]);
-
+                grid[y][x] = initTile(grid[y][x]);
+                //grid[y][x].setPicture(new Picture("outsidefloor_02.png"));
                 //grid[y][x].setPicture(picture);
                 //};
             }
         }
     }
 
-    abstract void initTile(NotSoAbstractTile tile);
+    abstract NotSoAbstractTile initTile(NotSoAbstractTile tile);
+    abstract void setTilePicture(Picture picture, int x, int y);
 }

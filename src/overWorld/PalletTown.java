@@ -23,22 +23,29 @@ public class PalletTown implements GlobalFunc{
         this.oakLab = sc.createScene();
         this.garyHouse = sc.createScene();
 
-        outside.setBackgroundSize(new Dimension(16,16));
-        sc.setPreferredSize(new Dimension(16,16));
+        outside.setBackgroundSize(new Dimension(1000,600));
+        //sc.setPreferredSize(new Dimension(400,200));
         Dimension dim = outside.getSize();
         double x = dim.getWidth();
         System.out.println(x);
 
         //everything below is just testing stuff
-        TileHandler outsideTileHandler = new TileHandler(outside) {
+        TileHandler palletOutsideTileHandler = new TileHandler(outside) {
 
             @Override
-            void initTile(NotSoAbstractTile tile) {
+            NotSoAbstractTile initTile(NotSoAbstractTile tile) {
                 tile = new OutsideTile(outside, 1, true, this.x, this.y);
+                return tile;
+            }
+
+            @Override
+            void setTilePicture(Picture picture, int x, int y) {
+
             }
         };
         //tileHandler.initTile(Class NotSoAbstractTile);
         System.out.println("Pallet Town");
+        palletOutsideTileHandler.setTilePicture(new Picture("outsidefloor_00.png"), 1,1);
 
 
 
