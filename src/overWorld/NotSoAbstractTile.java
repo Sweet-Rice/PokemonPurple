@@ -6,7 +6,7 @@ import basicgraphics.images.Picture;
 
 import java.awt.*;
 
-public abstract class AbstractTile extends Sprite {
+public abstract class NotSoAbstractTile extends Sprite {
     protected static Picture initPic = new Picture("outside_01.png");
     protected Picture picture;
     public boolean walkable = true;
@@ -15,19 +15,24 @@ public abstract class AbstractTile extends Sprite {
 
     protected int type;
 
-    public AbstractTile(Scene sc, int type, boolean walkable, int x, int y) {
+    public NotSoAbstractTile(Scene sc, int type, boolean walkable, int x, int y) {
+
         super (sc);
+        this.sc = sc;
         this.walkable = walkable;
         this.type = type;
-        d = sc.getSize();
+        d = sc.getBackgroundSize();
         setY(y*16);
         setX(x*16);
         setTile();
         System.out.println("created tile");
+        setPicture(initPic);
     }
 
     //should take in the int type and set a picture for tile
-    abstract void setTile ();
+    public void setTile() {
+
+    }
 
 
 }

@@ -23,12 +23,6 @@ public class LetterHandler {
     private int height;
     //width and height of box
 
-    private Letter[] letters;
-
-    private String text;
-    //will serve as the displayable text.
-    private String remainingText;
-    //will act as a buffer for text that cannot be displayed.
 
     private Letter[][] grid;
     private int gridWidth;

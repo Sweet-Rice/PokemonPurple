@@ -3,7 +3,7 @@ package overWorld;
 import basicgraphics.Scene;
 import basicgraphics.images.Picture;
 
-public class OutsideTile extends AbstractTile {
+public class OutsideTile extends NotSoAbstractTile {
 
     public OutsideTile(Scene sc, int type, boolean walkable, int x, int y) {
         super(sc, type, walkable, x, y);
@@ -11,7 +11,7 @@ public class OutsideTile extends AbstractTile {
     }
 
     @Override
-    void setTile() {
-        setPicture(new Picture("outside_001.png"));
+    public void setTile() {
+        setPicture(new Picture("outside_02.png"));
     }
 }

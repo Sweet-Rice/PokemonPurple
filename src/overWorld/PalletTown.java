@@ -3,6 +3,7 @@ package overWorld;
 import basicgraphics.Scene;
 import basicgraphics.Sprite;
 import basicgraphics.SpriteComponent;
+import basicgraphics.images.Picture;
 
 import java.awt.*;
 
@@ -17,21 +18,23 @@ public class PalletTown implements GlobalFunc{
 
     public PalletTown(SpriteComponent sc) {
 
-        this.outside = sc.createScene();
+        this.outside = sc.getScene();
         this.playerHouse = sc.createScene();
         this.oakLab = sc.createScene();
         this.garyHouse = sc.createScene();
 
-        outside.setBackgroundSize(new Dimension(800,400));
+        outside.setBackgroundSize(new Dimension(16,16));
+        sc.setPreferredSize(new Dimension(16,16));
+        Dimension dim = outside.getSize();
+        double x = dim.getWidth();
+        System.out.println(x);
 
         //everything below is just testing stuff
-        TileHandler tileHandler = new TileHandler(outside) {
-            @Override
-            void initTile(int y, int x) {
-                grid[y][x] = new OutsideTile(outside,1, true, y,x);
-            }
+        TileHandler tileHandler = new TileHandler(outside);
+        tileHandler.initTile(new Picture("outside_01.png"));
+        System.out.println("Pallet Town");
 
-        };
+
 
     }
 

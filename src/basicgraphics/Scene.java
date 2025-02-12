@@ -46,7 +46,7 @@ public class Scene {
             System.out.println("Image size: "+d);
         }
     }
-
+    public  Dimension getBackgroundSize() { return backgroundSize; }
     Painter painter = null;
     public void setPainter(Painter p) {
         painter = p;

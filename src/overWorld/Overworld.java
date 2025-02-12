@@ -3,6 +3,7 @@ package overWorld;
 import basicgraphics.*;
 import generic.GameManager;
 import generic.GameScreen;
+import menuWorld.Gary;
 
 public class Overworld {
 
@@ -13,7 +14,7 @@ public class Overworld {
 
 
 
-    private Scene outside;
+    //private Scene outside;
     GameManager gm;
 
     public final PalletTown palletTown;
@@ -27,6 +28,9 @@ public class Overworld {
         palletTown = new PalletTown(sc);
         //GlobalFunc global = new PalletTown(sc);
         //global.switchScene(outside);
+        //palletTown.outside = sc.getScene();
+        //Gary gary = new Gary(palletTown.outside, sc);
+
 
         sc.swapScene(palletTown.outside);
         ClockWorker.initialize(33);
