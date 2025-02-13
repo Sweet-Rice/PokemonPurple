@@ -21,7 +21,7 @@ public class Player extends Sprite {
         this.tileHandler = tileHandler;
         this.scene = scene;
         freezeOrientation = true;
-        Picture idle = new Picture("player_00.png");
+        Picture idle = new Picture("player_01.png");
         setDrawingPriority(2);
         setPicture(idle);
 
@@ -42,40 +42,24 @@ public class Player extends Sprite {
     public void move(NotSoAbstractTile tile, int direction){
         if (tile.requestMoveHere()){
 
-
-            final int steps = 10;
+            walk(direction);
+            final int steps = 16;
             ClockWorker.addTask(new Task(steps) {
                 int x = 1;
                 @Override
                 public void run() {
                     if (iteration()%5==0){
 
-                        if (direction==0){
-                            if (x==1){
-                                setPicture(new Picture("player_00.png"));
 
-                                x++;
-                            } else if (x==2){
-                                setPicture(new Picture("player_02.png"));
-                                x=1;
-                            }
-
-                        }
-                        setX(tile.getX());
-                        setY(tile.getY());
                     }
-                    /*
-                    if (iteration() == 2)
-                        setPicture(new Picture("player_00.png"));
-                    if (iteration() == 4)
-                        setPicture(new Picture("player_02.png"));
 
-                     */
+
 
 
                     if (iteration()==maxIteration()-1){
-                        //setX(tile.getX());
-                        //setY(tile.getY());
+                        setX(tile.getX());
+                        setY(tile.getY());
+                        currentTile = tile;
                         setVel(0,0);
                         busy = false;
 
@@ -134,13 +118,61 @@ public class Player extends Sprite {
 
     }
     private void walk(int direction){
-        int steps = 10;
+        final int steps = 15;
         ClockWorker.addTask(new Task(steps) {
-
-
+            int x = 1;
+            double currentX = getX();
+            double currentY = getY();
             @Override
             public void run() {
+                if (iteration() % 5 == 0) {
+                    //down
+                    if (direction == 0) {
+                        switch (x){
+                            case 1->{setPicture(new Picture("player_00.png"));x++;}
+                            case 2->{setPicture(new Picture("player_01.png"));x++;}
+                            case 3->{setPicture(new Picture("player_02.png"));x++;}
+                            case 4->{setPicture(new Picture("player_01.png"));x=1;}
+                        }
+                        currentY+=12;
 
+                    }
+                    //up
+                    if (direction == 1) {
+                        switch (x){
+                            case 1->{setPicture(new Picture("player_36.png"));x++;}
+                            case 2->{setPicture(new Picture("player_37.png"));x++;}
+                            case 3->{setPicture(new Picture("player_38.png"));x++;}
+                            case 4->{setPicture(new Picture("player_37.png"));x=1;}
+                        }
+
+                        currentY-=12;
+                    }
+                    //left
+                    if (direction == 2) {
+                        switch (x){
+                            case 1->{setPicture(new Picture("player_12.png"));x++;}
+                            case 2->{setPicture(new Picture("player_13.png"));x++;}
+                            case 3->{setPicture(new Picture("player_14.png"));x++;}
+                            case 4->{setPicture(new Picture("player_13.png"));x=1;}
+
+                        }
+                        currentX-=12;
+                    }
+                    //right
+                    if (direction == 3) {
+                        switch (x){
+                            case 1->{setPicture(new Picture("player_24.png"));x++;}
+                            case 2->{setPicture(new Picture("player_25.png"));x++;}
+                            case 3->{setPicture(new Picture("player_26.png"));x++;}
+                            case 4->{setPicture(new Picture("player_25.png"));x=1;}
+
+                        }
+                        currentX+=12;
+                    }
+                    setX(currentX+12);
+                    setY(currentY+45);
+                }
             }
         });
     }
