@@ -21,7 +21,6 @@ public abstract class TileHandler {
         d = scene.getBackgroundSize();
         this.gridWidth = d.width / SIZE;
         this.gridHeight = d.height / SIZE;
-        //System.out.println("tilehandler created");
         this.scene = scene;
 
         initGrid();
@@ -33,14 +32,12 @@ public abstract class TileHandler {
     public void initGrid() {
         grid = new NotSoAbstractTile[gridHeight][gridWidth];
         for ( y = 0; y < gridHeight; y++) {
-            grid[y] = new NotSoAbstractTile[gridWidth];
+            //potentially not necessary
+            //grid[y] = new NotSoAbstractTile[gridWidth];
             for ( x = 0; x < gridWidth; x++) {
-                //grid[y][x] = new NotSoAbstractTile(scene, 2, true, y, x){
+
                 grid[y][x] = initTile(grid[y][x]);
-                //grid[y][x].setDrawingPriority(0);
-                //grid[y][x].setPicture(new Picture("outsidefloor_02.png"));
-                //grid[y][x].setPicture(picture);
-                //};
+
             }
         }
     }

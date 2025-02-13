@@ -44,7 +44,8 @@ public class Overworld {
 
         player.setPosition(palletTown.outsideTileHandler.grid[5][5]);
 
-        /*sc.getScene().setFocus(player);
+        sc.getScene().setFocus(player);
+        /*
         sc.getScene().periodic_x = true;
         sc.getScene().periodic_y = true;
 */
@@ -60,9 +61,11 @@ public class Overworld {
             // 1 = dialogue click
             @Override
             public void keyPressed(KeyEvent e) {
-                if (stage == 0) {
+                if (stage == 0&&!player.busy) {
+
                     if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                         player.moveDirection(0);
+
                     }
                     if (e.getKeyCode() == KeyEvent.VK_UP) {
                         player.moveDirection(1);

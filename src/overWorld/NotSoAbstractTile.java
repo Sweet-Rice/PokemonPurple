@@ -28,11 +28,9 @@ public abstract class NotSoAbstractTile extends Sprite {
         setX(x*48);
         setDrawingPriority(1);
         setTile();
-
+        //^^^this needs to be here and I have no idea why
         System.out.println("created tile");
         setPicture(initPic);
-        //setTile();
-
     }
 
     //should take in the int type and set a picture for tile

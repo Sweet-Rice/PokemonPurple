@@ -11,7 +11,7 @@ public class OutsideTile extends NotSoAbstractTile {
     public OutsideTile(Scene sc, int type, boolean walkable, int x, int y) {
         super(sc, type, walkable, x, y);
         System.out.println("created tile");
-        setDrawingPriority(0);
+        //setDrawingPriority(0);
         setTile();
     }
 
