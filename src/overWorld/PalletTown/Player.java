@@ -68,7 +68,21 @@ public class Player extends Sprite {
                 }
             });
 
-        }
+        } else{
+            double currentX = getX();
+            double currentY = getY();
+            switch (direction){
+                case 0-> setPicture(new Picture("player_01.png"));
+                case 1-> setPicture(new Picture("player_37.png"));
+                case 2-> setPicture(new Picture("player_13.png"));
+                case 3-> setPicture(new Picture("player_25.png"));
+            }
+
+
+            setX(currentX+12);
+            setY(currentY+45);
+
+            busy = false;}
     }
 
     //0 is down, 1 is up, 2 is left, 3 is right
@@ -77,6 +91,7 @@ public class Player extends Sprite {
         int x = tileHandler.getGridWidth();
         int thisX = (12+(int)getX())/48;
         int thisY = (45+(int)getY())/48;
+
         switch (direction){
             case 0->{
                 if ((thisY+1)<y){

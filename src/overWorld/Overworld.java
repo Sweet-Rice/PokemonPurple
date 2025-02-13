@@ -28,7 +28,7 @@ public class Overworld {
         this.gm = gm;
         card = frame.getCard();
         this.sc = new SpriteComponent();
-        sc.setPreferredSize(new Dimension(48*12,48*9));
+        sc.setPreferredSize(new Dimension(48*20,48*12));
 
         card.createSingletonLayout(sc);
 

@@ -28,6 +28,7 @@ public abstract class NotSoAbstractTile extends Sprite {
         setX(x*48);
         setDrawingPriority(1);
         setTile();
+        setTile();
         //^^^this needs to be here and I have no idea why
         System.out.println("created tile");
         setPicture(initPic);
@@ -43,6 +44,16 @@ public abstract class NotSoAbstractTile extends Sprite {
         if (walkable) {
             return true;
         }return  false;
+    }
+    public void setWalkable(boolean walkable) {
+        this.walkable = walkable;
+    }
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
     }
 
 }
