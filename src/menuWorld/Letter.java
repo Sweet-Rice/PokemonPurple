@@ -43,107 +43,19 @@ public class Letter extends Sprite {
 
     public void setLetter(String character) {
 
-        switch (character) {
-            case "!" ->picture = new Picture("!.png");
-            case "#" ->picture =new Picture("#.png");
-            case "$" ->picture =new Picture("$png");
-            case "&" ->picture =new Picture("&.png");
-            case "*" ->picture =new Picture("*.png");
-            case "," ->picture =new Picture(",.png");
-            case "." ->picture =new Picture("..png");
-            case "0" ->picture =new Picture("0.png");
-            case "1" ->picture =new Picture("1.png");
-            case "2" ->picture =new Picture("2.png");
-            case "3" ->picture =new Picture("3.png");
-            case "4" ->picture =new Picture("4.png");
-            case "5" ->picture =new Picture("5.png");
-            case "6" ->picture =new Picture("6.png");
-            case "7" ->picture =new Picture("7.png");
-            case "8" ->picture =new Picture("8.png");
-            case "9" ->picture =new Picture("9.png");
-            case ":" ->picture =new Picture(":.png");
-            case ";" ->picture =new Picture(";.png");
-            case "?" ->picture =new Picture("?.png");
-            case "@" ->picture =new Picture("@.png");
-            case "^" ->picture =new Picture("^.png");
-            case "_" ->picture =new Picture("_.png");
-            case "A" ->picture =new Picture("capA.png");
-            case "B" ->picture =new Picture("capB.png");
-            case "C" ->picture =new Picture("capC.png");
-            case "D" ->picture =new Picture("capD.png");
-            case "E" ->picture =new Picture("capE.png");
-            case "F" ->picture =new Picture("capF.png");
-            case "G" ->picture =new Picture("capG.png");
-            case "H" ->picture =new Picture("capH.png");
-            case "I" ->picture =new Picture("capI.png");
-            case "J" ->picture =new Picture("capJ.png");
-            case "K" ->picture =new Picture("capK.png");
-            case "L" ->picture =new Picture("capL.png");
-            case "M" ->picture =new Picture("capM.png");
-            case "N" ->picture =new Picture("capN.png");
-            case "O" ->picture =new Picture("capO.png");
-            case "P" ->picture =new Picture("capP.png");
-            case "Q" ->picture =new Picture("capQ.png");
-            case "R" ->picture =new Picture("capR.png");
-            case "S" ->picture =new Picture("capS.png");
-            case "T" ->picture =new Picture("capT.png");
-            case "U" ->picture =new Picture("capU.png");
-            case "V" ->picture =new Picture("capV.png");
-            case "W" ->picture =new Picture("capW.png");
-            case "X" ->picture =new Picture("capX.png");
-            case "Y" ->picture =new Picture("capY.png");
-            case "Z" ->picture =new Picture("capZ.png");
-            case "a" ->picture =new Picture( "a.png");
-            case "b" ->picture =new Picture( "b.png");
-            case "c" ->picture =new Picture( "c.png");
-            case "d" ->picture =new Picture( "d.png");
-            case "e" ->picture =new Picture( "e.png");
-            case "f" ->picture =new Picture( "f.png");
-            case "g" ->picture =new Picture( "g.png");
-            case "h" ->picture =new Picture( "h.png");
-            case "i" ->picture =new Picture( "i.png");
-            case "j" ->picture =new Picture( "j.png");
-            case "k" ->picture =new Picture( "k.png");
-            case "l" ->picture =new Picture( "l.png");
-            case "m" ->picture =new Picture( "m.png");
-            case "n" ->picture =new Picture( "n.png");
-            case "o" ->picture =new Picture( "o.png");
-            case "p" ->picture =new Picture( "p.png");
-            case "q" ->picture =new Picture( "q.png");
-            case "r" ->picture =new Picture( "r.png");
-            case "s" ->picture =new Picture( "s.png");
-            case "t" ->picture =new Picture( "t.png");
-            case "u" ->picture =new Picture( "u.png");
-            case "v" ->picture =new Picture( "v.png");
-            case "w" ->picture =new Picture( "w.png");
-            case "x" ->picture =new Picture( "x.png");
-            case "y" ->picture =new Picture( "y.png");
-            case "z" ->picture =new Picture( "z.png");
-            case "|" ->picture =new Picture( "abs.png");
-            case "'" ->picture =new Picture( "apostrophe.png");
-            //case "!" ->new Picture("closeapostrophe.png");
-            case "]" ->picture =new Picture("closebracket.png");
-            case "}" ->picture =new Picture( "closecurly.png");
-            case ")" ->picture =new Picture("closeparenth.png");
-            case "" ->picture =new Picture("closequote.png");
-            case "=" ->picture =new Picture("equal.png");
-            case "`" ->picture =new Picture("evil.png");
-            case ">" ->picture =new Picture("greaterthan.png");
-            case "<" ->picture =new Picture("lessthan.png");
-            case "-" ->picture =new Picture("minus.png");
-            case "[" ->picture =new Picture("openbracket.png");
-            case "{" ->picture =new Picture("opencurly.png");
-            case "(" ->picture =new Picture("openparenth.png");
-            //case "" ->new Picture("openquote.png");
-            case "%" ->picture =new Picture("percent.png");
-            case "+" ->picture =new Picture("plus.png");
-            //case "\\" ->new Picture("slashback.png");
-            case "/" ->picture =new Picture("slashfor.png");
-            case " " ->picture =new Picture("space.png");
-            case "~" ->picture =new Picture("tilda.png");
-
-
+        char c = character.charAt(0);
+        String fname = "";
+        if(c >= 'A' && c <= 'Z') {
+            fname = "cap"+c+".png";
+        } else if(c>='a' &&c<='z'){
+            fname = ""+c+".png";
+        } else if (c>='0'&&c<='9'){
+            fname = ""+c+".png";
+        }else {
+            System.out.printf("%02x.png",(int)c);
+            fname = String.format("%02x.png", (int)c);
         }
+        picture = new Picture(fname);
 
         setPicture(picture);
         empty = false;
