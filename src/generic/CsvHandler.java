@@ -85,7 +85,7 @@ public class CsvHandler {
     //readwrite checker
 
 
-
+/*
     public static void main(String[] args) {
         try {
             CsvHandler handler = new CsvHandler("data.csv");
@@ -105,7 +105,7 @@ public class CsvHandler {
         }
     }
 
-
+*/
 
 
 }
