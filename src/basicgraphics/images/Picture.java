@@ -36,7 +36,7 @@ public class Picture extends JComponent {
 
     private BufferedImage image;
     private int width, height;
-
+    
     @Override
     public Dimension getSize() {
         return new Dimension(width, height);
