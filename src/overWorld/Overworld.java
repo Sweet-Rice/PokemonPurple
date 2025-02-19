@@ -28,7 +28,7 @@ public class Overworld {
         this.gm = gm;
         card = frame.getCard();
         this.sc = new SpriteComponent();
-        sc.setPreferredSize(new Dimension(48*20,48*12));
+        sc.setPreferredSize(new Dimension(48*16,48*12));
 
         card.createSingletonLayout(sc);
 
@@ -42,7 +42,7 @@ public class Overworld {
         sc.swapScene(palletTown.outside);
         player = new Player(palletTown.outside, palletTown.outsideTileHandler);
 
-        player.setPosition(palletTown.outsideTileHandler.grid[5][5]);
+        player.setPosition(palletTown.outsideTileHandler.grid[7][9]);
 
         sc.getScene().setFocus(player);
         /*

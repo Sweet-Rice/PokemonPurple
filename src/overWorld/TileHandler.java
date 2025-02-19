@@ -37,6 +37,11 @@ public abstract class TileHandler {
             for ( x = 0; x < gridWidth; x++) {
 
                 grid[y][x] = initTile(grid[y][x]);
+                if (y<=5||y>=gridHeight-5||x<=7||x>=gridWidth-8) {
+                    grid[y][x].walkable = false;
+                    //placeholder till i figure smt out
+                    grid[y][x].setPicture(new Picture("outsidefloor_39.png"));
+                }
 
             }
         }
