@@ -12,12 +12,14 @@ public abstract class NotSoAbstractTile extends Sprite {
     public boolean walkable = true;
     protected Scene sc;
     protected Dimension d;
+    protected TileHandler tileHandler;
 
 
 
     protected int type;
+    protected int behavior = 0;
 
-    public NotSoAbstractTile(Scene sc, int type, boolean walkable, int x, int y) {
+    public NotSoAbstractTile(Scene sc, int type, boolean walkable, int x, int y, TileHandler tileHandler) {
 
         super (sc);
         this.sc = sc;
@@ -30,8 +32,9 @@ public abstract class NotSoAbstractTile extends Sprite {
         setTile();
         setTile();
         //^^^this needs to be here and I have no idea why
-        System.out.println("created tile");
+        //System.out.println("created tile");
         setPicture(initPic);
+        this.tileHandler = tileHandler;
     }
 
     //should take in the int type and set a picture for tile
@@ -43,7 +46,9 @@ public abstract class NotSoAbstractTile extends Sprite {
     public boolean requestMoveHere(){
         if (walkable) {
             return true;
-        }return  false;
+        }
+        System.out.println("I refused!");
+        return  false;
     }
     public void setWalkable(boolean walkable) {
         this.walkable = walkable;
@@ -56,4 +61,18 @@ public abstract class NotSoAbstractTile extends Sprite {
         return type;
     }
 
+    public void behaviorAction(){
+        System.out.println("behaviorAction");
+        if (behavior != 0) {
+            System.out.println("specifiedBehaviorAction");
+            specifiedBehaviorAction();
+        }
+    }
+    public void specifiedBehaviorAction() {
+        //override this with if statements specifying type
+
+    }
+    public void setBehavior(int behavior) {
+        this.behavior = behavior;
+    }
 }

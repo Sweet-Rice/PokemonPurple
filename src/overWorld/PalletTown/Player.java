@@ -34,6 +34,7 @@ public class Player extends Sprite {
             setX(tile.getX());
             setY(tile.getY());
             currentTile = tile;
+
         }
         else {
             throw new IllegalStateException("Player cannot be positioned on an unwalkable tile");
@@ -61,12 +62,14 @@ public class Player extends Sprite {
                         setY(tile.getY());
                         currentTile = tile;
                         setVel(0,0);
+                        tile.behaviorAction();
                         busy = false;
 
 
                     }
                 }
             });
+
 
         } else{
             double currentX = getX();
@@ -83,6 +86,7 @@ public class Player extends Sprite {
             setY(currentY+45);
 
             busy = false;}
+
     }
 
     //0 is down, 1 is up, 2 is left, 3 is right
@@ -97,7 +101,7 @@ public class Player extends Sprite {
                 if ((thisY+1)<y){
                     //setVelY(5);
                     busy = true;
-                    move(tileHandler.grid[thisY+1][thisX],direction);
+                    move(tileHandler.playerGetTile(thisX,thisY+1),direction);
                     //walk(0);
                 }
 
@@ -105,19 +109,19 @@ public class Player extends Sprite {
             case 1->{
                 if ((thisY-1)>=0){
                     busy = true;
-                    move(tileHandler.grid[thisY-1][thisX],direction);
+                    move(tileHandler.playerGetTile(thisX,thisY-1),direction);
                 }
             }
             case 2->{
                 if ((thisX-1)>=0){
                     busy = true;
-                    move(tileHandler.grid[thisY][thisX-1],direction);
+                    move(tileHandler.playerGetTile(thisX-1,thisY),direction);
                 }
             }
             case 3->{
                 if ((thisX+1)<x){
                     busy = true;
-                    move(tileHandler.grid[thisY][thisX+1],direction);
+                    move(tileHandler.playerGetTile(thisX+1,thisY),direction);
                 }
             }
         }

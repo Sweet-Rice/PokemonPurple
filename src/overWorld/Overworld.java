@@ -42,7 +42,7 @@ public class Overworld {
         sc.swapScene(palletTown.outside);
         player = new Player(palletTown.outside, palletTown.outsideTileHandler);
 
-        player.setPosition(palletTown.outsideTileHandler.grid[7][9]);
+        player.setPosition(palletTown.outsideTileHandler.getTile(0,0));
 
         sc.getScene().setFocus(player);
         /*
