@@ -27,7 +27,9 @@ public class PalletTown implements GlobalFunc {
 
         this.overworld = o;
         this.outside = sc.getScene();
+        System.out.println("I am a outside."+outside.toString());
         this.playerHouse = sc.createScene();
+        System.out.println("I am a playerHouse."+playerHouse.toString());
         this.oakLab = sc.createScene();
         this.garyHouse = sc.createScene();
 
@@ -44,6 +46,7 @@ public class PalletTown implements GlobalFunc {
         outsideTileHandler = new TileHandler(outside,25,15) {
             @Override
             public void additionalInit() {
+                System.out.println("I am outsideTileHandler."+this.scene.toString());
                 otherScenes[1] = playerHouse;
             }
             @Override
@@ -60,10 +63,12 @@ public class PalletTown implements GlobalFunc {
             public void migrate() {
                 System.out.println(overworld.player.scene.toString());
                 overworld.player.migrate(playerHouse,0,0,0,0);
+                overworld.player.tileHandler=playerHouseTileHandler;
+                overworld.player.scene = playerHouse;
                 System.out.println("migrated");
                 System.out.println(overworld.player.scene.toString());
 
-                playerHouseTileHandler.initGrid();
+                //playerHouseTileHandler.initGrid();
                 //Unsure why, but it isn't migrating correctly? Or playerHouseTileHandler is in the wrong place?
                 playerHouse.setFocus(overworld.player);
                 overworld.player.setPosition(playerHouseTileHandler.walkableTile());
@@ -130,8 +135,11 @@ public class PalletTown implements GlobalFunc {
     }
     private void initPlayerHouse() {
         //playerHouse.setBackgroundSize(new Dimension(48*20,48*12));
-        playerHouseTileHandler = new TileHandler(playerHouse,20,12) {
-
+        playerHouseTileHandler = new TileHandler(playerHouse,20,15) {
+            @Override
+            public void additionalInit(){
+                System.out.println("I am playerHouseTileHandler."+this.scene.toString());
+            }
             @Override
             public NotSoAbstractTile initTile(NotSoAbstractTile tile) {
                 tile = new PlayerHouseTile(playerHouse, 1, true, this.x, this.y, playerHouseTileHandler);

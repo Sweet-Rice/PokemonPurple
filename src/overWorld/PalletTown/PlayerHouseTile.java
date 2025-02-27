@@ -10,9 +10,10 @@ public class PlayerHouseTile extends NotSoAbstractTile {
         super(sc, type, walkable, x, y, tileHandler);
         //System.out.println("created playerHouseTile");
         if (walkable) {
-            System.out.println("walkable");
+            System.out.print("walkable");
 
         }
+        System.out.println(sc.toString());
         setTile();
     }
 

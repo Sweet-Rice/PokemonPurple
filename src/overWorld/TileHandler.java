@@ -13,19 +13,21 @@ public abstract class TileHandler {
 
     private NotSoAbstractTile[][] grid;
     private int gridWidth, gridHeight;
-    private Scene scene;
+    public Scene scene;
     public Scene[] otherScenes = new Scene[10];
     private Dimension d;
 
 
     public TileHandler( Scene scene, int width, int height) {
-        this.d = scene.getBackgroundSize();
-        this.gridWidth = d.width / SIZE;
-        this.gridHeight = d.height / SIZE;
         this.scene = scene;
-        //scene.setBackgroundSize(new Dimension(width*SIZE, height*SIZE));
-        //this.gridWidth = width;
-        //this.gridHeight = height;
+
+        this.d = this.scene.getBackgroundSize();
+        //this.gridWidth = d.width / SIZE;
+        //this.gridHeight = d.height / SIZE;
+
+        scene.setBackgroundSize(new Dimension(width*SIZE, height*SIZE));
+        this.gridWidth = width;
+        this.gridHeight = height;
         initGrid();
         additionalInit();
 
@@ -42,6 +44,8 @@ public abstract class TileHandler {
                 grid[y][x] = initTile(grid[y][x]);
                 if (y<paddingY||y>=gridHeight-paddingY||x<=8||x>=gridWidth-8) {
                     grid[y][x].walkable = false;
+
+
                     //placeholder till i figure smt out
                     grid[y][x].setPicture(new Picture("outsidefloor_39.png"));
                 }

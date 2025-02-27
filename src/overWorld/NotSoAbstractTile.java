@@ -44,6 +44,7 @@ public abstract class NotSoAbstractTile extends Sprite {
 
     //modify this if you want to implement ledges
     public boolean requestMoveHere(){
+        System.out.println("I am a tile requested."+sc.toString());
         if (walkable) {
             return true;
         }

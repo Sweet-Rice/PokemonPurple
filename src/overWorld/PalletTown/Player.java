@@ -30,6 +30,7 @@ public class Player extends Sprite {
 
     }
     public void setPosition (NotSoAbstractTile tile){
+        System.out.println("setting pos" + scene.toString());
         if (tile.requestMoveHere()){
             setX(tile.getX());
             setY(tile.getY());
@@ -37,10 +38,12 @@ public class Player extends Sprite {
 
         }
         else {
-            throw new IllegalStateException("Player cannot be positioned on an unwalkable tile");
+            System.out.println("what the hell?");
+            //throw new IllegalStateException("Player cannot be positioned on an unwalkable tile");
         }
     }
     public void move(NotSoAbstractTile tile, int direction){
+        System.out.println(scene.toString());
         if (tile.requestMoveHere()){
 
             walk(direction);
