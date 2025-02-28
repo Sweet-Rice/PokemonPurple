@@ -21,13 +21,15 @@ public abstract class TileHandler {
     public TileHandler( Scene scene, int width, int height) {
         this.scene = scene;
 
-        this.d = this.scene.getBackgroundSize();
+        //this.d = this.scene.getBackgroundSize();
         //this.gridWidth = d.width / SIZE;
         //this.gridHeight = d.height / SIZE;
+        this.gridWidth = width + (2*paddingX);
+        this.gridHeight = height + (2*paddingY);
 
-        scene.setBackgroundSize(new Dimension(width*SIZE, height*SIZE));
-        this.gridWidth = width;
-        this.gridHeight = height;
+        scene.setBackgroundSize(new Dimension(gridWidth*SIZE, gridHeight*SIZE));
+
+
         initGrid();
         additionalInit();
 
@@ -42,7 +44,7 @@ public abstract class TileHandler {
             for ( x = 0; x < gridWidth; x++) {
 
                 grid[y][x] = initTile(grid[y][x]);
-                if (y<paddingY||y>=gridHeight-paddingY||x<=8||x>=gridWidth-8) {
+                if (y<paddingY||y>=gridHeight-paddingY||x<paddingX||x>gridWidth-paddingX) {
                     grid[y][x].walkable = false;
 
 
