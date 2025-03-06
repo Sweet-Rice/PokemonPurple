@@ -93,7 +93,7 @@ public class Menu {
 
 
         //test
-        InputStream fontStream = getClass().getResourceAsStream("/fonts/chary.ttf");
+        InputStream fontStream = getClass().getResourceAsStream("/fonts/pokemon_fire_red.ttf");
         Font font = null;
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
@@ -117,6 +117,8 @@ public class Menu {
 
         JButton startButton = new JButton("Start");
         sc.add("x=1,y=5,w=2,h=1", startButton);
+
+
         startButton.setFont(font.deriveFont(Font.BOLD, 100));
 
         startButton.setForeground(Color.BLACK);
@@ -140,8 +142,8 @@ public class Menu {
 
 
 
-                gm.switchGame();
-                //initializeSaveSc();
+                //gm.switchGame();
+                initializeSaveSc();
             }
         });
 

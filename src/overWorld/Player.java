@@ -1,12 +1,10 @@
-package overWorld.PalletTown;
+package overWorld;
 
 import basicgraphics.ClockWorker;
 import basicgraphics.Scene;
 import basicgraphics.Sprite;
 import basicgraphics.Task;
 import basicgraphics.images.Picture;
-import overWorld.NotSoAbstractTile;
-import overWorld.TileHandler;
 
 public class Player extends Sprite {
     public Scene scene;
@@ -140,7 +138,7 @@ public class Player extends Sprite {
 
     }
     private void walk(int direction){
-        final int steps = 15;
+        final int steps = 16;
         ClockWorker.addTask(new Task(steps) {
             int x = 1;
             double currentX = getX();

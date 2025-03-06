@@ -1,28 +1,27 @@
 
 package menuWorld;
 
+import basicgraphics.ClockWorker;
+import basicgraphics.Scene;
 import basicgraphics.SpriteComponent;
+import basicgraphics.Task;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LetterHandler {
-    private final int WIDTH = 24;
-    private final int HEIGHT = 27;
-//width and height of letters
-
 
     private int x;
     private int y;
     //location of box
 
-    private final int XYDISPLACEMENT = 40;
-    //displacement from the walls of box
-
     private int width;
     private int height;
     //width and height of box
 
+    private final int XDISPLACEMENT;
+    private final int YDISPLACEMENT;
 
     private Letter[][] grid;
     private int gridWidth;
@@ -31,42 +30,94 @@ public class LetterHandler {
     //should serve as the layout of the locations of the letters
 
     private SpriteComponent sc;
+    private Font font;
+    private Color color;
+    private String string;
+    int letterHeight;
+    int letterWidth;
 
-    public LetterHandler(double x, double y, double width, double height, SpriteComponent sc) {
-        this.sc = sc;
-        this.x = (int) x + XYDISPLACEMENT;
-        this.y = (int) y + XYDISPLACEMENT;
+    public LetterHandler(double x, double y, double width, double height, SpriteComponent sc, Font font, Color color, String string) {
         this.width = (int) width;
         this.height = (int) height;
+        this.XDISPLACEMENT = this.width/15;
+        this.YDISPLACEMENT = this.height/15;
+        this.sc = sc;
+        this.x = (int) x + XDISPLACEMENT;
+        this.y = (int) y + YDISPLACEMENT;
 
-        gridWidth = ((int) width - (2 * XYDISPLACEMENT)) / 24;
-        gridHeight = ((int) height - (2 * XYDISPLACEMENT)) / 27;
+        this.string = string;
+        setText(string);
 
+        Scene tempsc =  sc.createScene();
+        Letter temp = new Letter(tempsc, 0,0, color, font, "s");
+        //reference letter to create grid before actually generating grid
 
-        //organizes the grid in an array of rows. Should be easier management.
-        //tldr y,x
+        letterHeight = (int)temp.getHeight();
+        letterWidth = (int) temp.getWidth();
+
+        gridWidth = ((int) width - (2 * XDISPLACEMENT)) / letterWidth;
+        gridHeight = ((int) height - (2 * YDISPLACEMENT)) / letterHeight;
+
+        this.font = font;
+        this.color = color;
+
         initGrid();
-        //setText("ee");
+        showStrings();
     }
 
     public void initGrid() {
         grid = new Letter[(int) gridHeight][(int) gridWidth];
+        int incr = 0;
+
+
         for (int i = 0; i < gridHeight; i++) {
             grid[i] = new Letter[gridWidth];
+            int wordX = 0;
             for (int j = 0; j < gridWidth; j++) {
-                grid[i][j] = new Letter(sc.getScene(), j, i);
 
-                //grid[i][j].setX(xLoc);
-                // grid[i][j].setY(yLoc);
-                //xLoc += 24;
+                String temp = extractFirst();
+                System.out.println("temp word: " + temp);
+                String s = " ";
+                if(!temp.isEmpty()) {
+
+                    if (temp.substring(wordX).length()<gridWidth-j) {
+                        if (wordX>=temp.length()) {
+                            s = " ";
+                            wordQueue.removeFirst();
+                            System.out.println("removed");
+                            wordX = 0;
+                        } else {
+                            s  = Character.toString(temp.charAt(wordX));
+                            wordX++;
+                        }
+                        System.out.println(s);
+                    } else {
+                        System.out.println("reached else");
+                        if (wordX>=temp.length())
+                            wordQueue.removeFirst();
+                        wordX = 0;
+                        s = " ";
+                    }
+                }
+
+                System.out.println("creating: " + s);
+                grid[i][j] = new Letter(sc.getScene(), j, i, color, font, s);
+                grid[i][j].setX(x + j*grid[i][j].getWidth());
+                grid[i][j].setY(y + i*grid[i][j].getHeight());
 
             }
         }
+
     }
     private ArrayList<String> wordQueue;
     public void setText(String textIn) {
-        String[] parsed = textIn.split("\\s+");
+        String[] parsed = textIn.split("\\W+");
+        //for (int i = 0; i < parsed.length; i++) {
+        //    parsed[i] += " ";
+        //}
         this.wordQueue = new ArrayList<>(Arrays.asList(parsed));
+
+        System.out.println(wordQueue);
     }
 
     public String extractFirst(){
@@ -75,7 +126,7 @@ public class LetterHandler {
         return wordQueue.get(0);
     }
     public void appendText(String textIn) {
-        String[] parsed = textIn.split("\\s+");
+        String[] parsed = textIn.split("\\W+");
         wordQueue.addAll(Arrays.asList(parsed));
 
     }
@@ -91,59 +142,25 @@ public class LetterHandler {
 
     }
 
-    public void showString(){
-        while (!wordQueue.isEmpty()) {
-            printWord();
-        }
-    }
+    public void showStrings(){
+        ClockWorker.addTask(new Task() {
+            int iteratedX = 0;
+            int iteratedY = 0;
+            @Override
+            public void run() {
 
-   public void printWord(){
-       String word = wordQueue.getFirst();
-       System.out.println(word);
-       int count = 0;
-       if((gridWidth-1)-getEmptyCol()<word.length()){
-           for (int i = getEmptyCol(); i < gridWidth; i++) {
-               grid[getEmptyRow()][i].setLetter(" ");
-           }
-       }else{
-           int space = getEmptyCol();
-           for (int i = getEmptyCol(); i < gridWidth; i++) {
-               if (grid[getEmptyRow()][i].empty&&count<word.length()){
+                if (iteratedY<gridHeight) {
+                    if (iteratedX<gridWidth) {
+                        grid[iteratedY][iteratedX].is_visible = true;
+                        //System.out.println(iteratedX + " " + iteratedY);
+                        iteratedX++;
 
-                   grid[getEmptyRow()][i].setLetter(Character.toString(word.charAt(count++)));
-
-                    space++;
-
-               }
-           }
-           if (checkSpace(getEmptyRow())>0){
-               grid[getEmptyRow()][getEmptyCol()].setLetter(" ");
-           }
-           wordQueue.removeFirst();
-       }
-
-   }
-
-
-    public int getEmptyRow(){
-        for (int i = 0; i < gridHeight; i++) {
-            for (int j = 0; j < gridWidth; j++) {
-                if (grid[i][j].empty){
-                    return i;
+                    } else {
+                        iteratedX = 0;
+                        iteratedY++;
+                    }
                 }
             }
-        }
-        return -1;
-
-    }
-    public int getEmptyCol(){
-        for (int i = 0; i < gridHeight; i++) {
-            for (int j = 0; j < gridWidth; j++) {
-                if (grid[i][j].empty){
-                    return j;
-                }
-            }
-        }
-        return -1;
+        });
     }
 }

@@ -3,12 +3,10 @@ package overWorld;
 import basicgraphics.*;
 import generic.GameManager;
 import overWorld.PalletTown.PalletTown;
-import overWorld.PalletTown.Player;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Overworld {
 
@@ -82,6 +80,7 @@ public class Overworld {
                     System.out.println("attempted");
                 }
             }
+
         });
 
 
