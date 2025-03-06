@@ -1,13 +1,16 @@
 package menuWorld;
 
 import basicgraphics.*;
+import basicgraphics.images.Picture;
 import basicgraphics.sounds.ReusableClip;
 import generic.GameManager;
 import generic.GameScreen;
+import generic.TransitionSprite;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,6 +34,7 @@ public class Menu {
 
     private Scene scene;
     private Scene saveScene;
+    private Scene beginSequenceScene;
 
 
     final ReusableClip titleClip = new ReusableClip("title3.wav");
@@ -53,6 +57,7 @@ public class Menu {
         this.g = new SpriteComponent();
 
         scene=sc.getScene();
+        this.beginSequenceScene = sc.getScene();
         saveScene= sc.createScene();
 
         //sc.swapScene(scene);
@@ -134,28 +139,47 @@ public class Menu {
                 //titleClip.stop();
                 //optimally shouldn't need to do all this. will figure out eventually
                 ///*
+
+                //*/
                 sc.remove(startButton);
                 sc.remove(g);
                 sc.remove(r);
                 sc.remove(title);
-                //*/
 
+                ClockWorker.addTask(new Task(50){
 
+                    @Override
+                    public void run() {
+                        if (iteration()==0){
+                            TransitionSprite spr = new TransitionSprite(sc.getScene(),1, true);
+                        }
+                        if (iteration()==50){
 
+                            //initializeSaveSc();
+                            initializeBeginSequence();
+                        }
+                    }
+                });
                 //gm.switchGame();
-                initializeSaveSc();
+
             }
         });
 
 
     }
-
+    private void initializeBeginSequence() {
+        sc.swapScene(beginSequenceScene);
+        TransitionSprite transitionSprite = new TransitionSprite(saveScene,1, false);
+        System.out.println(sc.getSize().getWidth()+" "+sc.getSize().getHeight());
+    }
     private void initializeSaveSc(){
         //Picture white = new Picture("white.jpg");
         //white.setBackground(Color.white);
         //saveScene.setPainter(new BackgroundPainter( white));
         sc.swapScene(saveScene);
         saveSprite = new SaveSprite(saveScene, sc);
+
+        TransitionSprite transitionSprite = new TransitionSprite(saveScene,1, false);
         ClockWorker.initialize(33);
         ClockWorker.addTask(sc.moveSprites());
         BasicLayout blayout1 = new BasicLayout();
