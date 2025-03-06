@@ -62,7 +62,7 @@ public class LetterHandler {
         this.color = color;
 
         initGrid();
-        showStrings();
+        //showStrings();
     }
 
     public void initGrid() {
@@ -141,7 +141,13 @@ public class LetterHandler {
        return count;
 
     }
-
+    public void showNow(){
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
+                grid[i][j].is_visible = true;
+            }
+        }
+    }
     public void showStrings(){
         ClockWorker.addTask(new Task() {
             int iteratedX = 0;
@@ -162,5 +168,12 @@ public class LetterHandler {
                 }
             }
         });
+    }
+    public void fadeOut(){
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
+                grid[i][j].fadeOut();
+            }
+        }
     }
 }
