@@ -183,15 +183,7 @@ public class Menu {
         ClockWorker.initialize(33);
         ClockWorker.addTask(sc.moveSprites());
         BasicLayout blayout1 = new BasicLayout();
-        ClockWorker.addTask(new Task(100) {
-            @Override
-            public void run() {
-                if (iteration()==100){
-                    System.out.println("fading in: "+ (100-iteration()));
-                    saveSprite.getLh().fadeOut();
-                }
-            }
-        });
+
 
 
     }
