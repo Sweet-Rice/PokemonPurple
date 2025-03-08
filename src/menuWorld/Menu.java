@@ -147,15 +147,18 @@ public class Menu {
                 sc.remove(title);
 
                 ClockWorker.addTask(new Task(50){
-
+                    TransitionSprite spr = new TransitionSprite(sc.getScene(),1);
                     @Override
                     public void run() {
                         if (iteration()==0){
-                            TransitionSprite spr = new TransitionSprite(sc.getScene(),1, true);
-                        }
-                        if (iteration()==50){
 
-                            initializeSaveSc();
+                            spr.transition(true, 1);
+                        }
+                        if (iteration()==20){
+                            spr.destroy();
+                            initializeBeginSequence();
+
+                            //initializeSaveSc();
                             //initializeBeginSequence();
                         }
                     }
@@ -169,7 +172,15 @@ public class Menu {
     }
     private void initializeBeginSequence() {
         sc.swapScene(beginSequenceScene);
-        TransitionSprite transitionSprite = new TransitionSprite(saveScene,1, false);
+        //sc.setPreferredSize(new Dimension(100, 100));
+       TransitionSprite transitionSprite = new TransitionSprite(beginSequenceScene,1);
+        transitionSprite.transition(false, 1);
+        Sprite introBox = new Sprite(beginSequenceScene);
+        introBox.setDrawingPriority(1);
+
+        introBox.setPicture(new Picture("introBox.png"));
+        //introBox.setX((sc.getWidth()-introBox.getWidth())/2);
+        System.out.println(introBox.getWidth()+" "+introBox.getHeight());
         System.out.println(sc.getSize().getWidth()+" "+sc.getSize().getHeight());
     }
     private void initializeSaveSc(){
@@ -179,7 +190,8 @@ public class Menu {
         sc.swapScene(saveScene);
         saveSprite = new SaveSprite(saveScene, sc);
 
-        TransitionSprite transitionSprite = new TransitionSprite(saveScene,1, false);
+        TransitionSprite transitionSprite = new TransitionSprite(saveScene,1);
+        transitionSprite.transition(false, 1);
         ClockWorker.initialize(33);
         ClockWorker.addTask(sc.moveSprites());
         BasicLayout blayout1 = new BasicLayout();

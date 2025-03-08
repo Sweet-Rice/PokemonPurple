@@ -1,4 +1,4 @@
-package menuWorld;
+package generic;
 
 import basicgraphics.*;
 import basicgraphics.images.Picture;
@@ -69,6 +69,28 @@ public class Letter extends Sprite {
         this.realImage = realImage;
         return realImage;
 
+    }
+    public void fadeIn(){
+        ClockWorker.addTask(new Task() {
+            @Override
+            public void run() {
+                BufferedImage tempImage = new BufferedImage(realImage.getWidth(), realImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
+                Graphics2D tempG = tempImage.createGraphics();
+                tempG.setFont(font);
+                int speed = iteration()*iteration();
+                if (speed>255) speed = 255;
+                tempG.setColor(new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue(), speed));
+                if (letter.equals("i")) {
+                    tempG.drawString("i", textWidth/3, baselineY);
+                }
+                else if (letter.equals("l")) {
+                    tempG.drawString("l", textWidth/5, baselineY);
+                }
+                else tempG.drawString(letter, textX, baselineY);
+                setDrawingPriority(10);
+                setPicture( new Picture(tempImage));
+            }
+        });
     }
 
     public void fadeOut() {

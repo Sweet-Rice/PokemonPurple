@@ -1,5 +1,5 @@
 
-package menuWorld;
+package generic;
 
 import basicgraphics.ClockWorker;
 import basicgraphics.Scene;
@@ -168,6 +168,13 @@ public class LetterHandler {
                 }
             }
         });
+    }
+    public void fadeIn(){
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
+                grid[i][j].fadeIn();
+            }
+        }
     }
     public void fadeOut(){
         for (int i = 0; i < gridHeight; i++) {

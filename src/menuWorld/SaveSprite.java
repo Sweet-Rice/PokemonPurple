@@ -4,6 +4,7 @@ import basicgraphics.Scene;
 import basicgraphics.Sprite;
 import basicgraphics.SpriteComponent;
 import basicgraphics.images.Picture;
+import generic.LetterHandler;
 
 import java.awt.*;
 import java.io.IOException;
