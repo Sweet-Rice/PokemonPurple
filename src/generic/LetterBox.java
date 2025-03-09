@@ -26,18 +26,5 @@ public class LetterBox extends Sprite {
         setY(y);
 
     }
-    public LetterHandler setLetterHandler(String string, Color color, int fontsize){
-        InputStream fontStream = getClass().getResourceAsStream("/fonts/pokemon_fire_red.ttf");
-        Font font = null;
-        try {
-            font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
-            font = font.deriveFont( Font.BOLD, fontsize );
 
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new LetterHandler(getX(),getY(),getWidth(),getHeight(),sc.getSpriteComponent(),font,color,string);
-    }
 }

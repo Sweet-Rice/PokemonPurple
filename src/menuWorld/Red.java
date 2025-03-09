@@ -1,9 +1,6 @@
 package menuWorld;
 
-import basicgraphics.Scene;
-import basicgraphics.Sprite;
-import basicgraphics.SpriteCollisionEvent;
-import basicgraphics.SpriteComponent;
+import basicgraphics.*;
 import basicgraphics.images.Picture;
 
 import java.awt.*;
@@ -24,23 +21,19 @@ public class Red extends Sprite {
         setPicture(initialPic);
         Dimension d = sc.getSize();
         setX(-200);
-        setY(25);
+        setY(325);
         setVel(10, 0);
+
+        ClockWorker.addTask(new Task() {
+            @Override
+            public void run() {
+                if (getX()>=0){
+                    setX(0);
+                    setVel(0,0);
+                }
+            }
+        });
     }
 
-    /**
-     * This sprite only reacts to collisions with the
-     * borders of the display region. When it does, it
-     * wraps to the other side.
-     * @param se
-     */
-    @Override
-    public void processEvent(SpriteCollisionEvent se) {
-        SpriteComponent sc = getSpriteComponent();
 
-        if (se.xhi) {
-            setVel(0,0);
-        }
-
-    }
 }

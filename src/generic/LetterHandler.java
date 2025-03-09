@@ -33,23 +33,25 @@ public class LetterHandler {
     private Font font;
     private Color color;
     private String string;
+    private int prio;
     int letterHeight;
     int letterWidth;
 
-    public LetterHandler(double x, double y, double width, double height, SpriteComponent sc, Font font, Color color, String string) {
+    public LetterHandler(double x, double y, double width, double height, SpriteComponent sc, Font font, Color color, String string, int prio) {
         this.width = (int) width;
         this.height = (int) height;
-        this.XDISPLACEMENT = this.width/15;
-        this.YDISPLACEMENT = this.height/15;
+        this.XDISPLACEMENT = 0;//this.width/15;
+        this.YDISPLACEMENT = 0;//this.height/15;
         this.sc = sc;
         this.x = (int) x + XDISPLACEMENT;
         this.y = (int) y + YDISPLACEMENT;
+        this.prio = prio;
 
         this.string = string;
         setText(string);
 
         Scene tempsc =  sc.createScene();
-        Letter temp = new Letter(tempsc, 0,0, color, font, "s");
+        Letter temp = new Letter(tempsc, 0,0, color, font, "s", prio);
         //reference letter to create grid before actually generating grid
 
         letterHeight = (int)temp.getHeight();
@@ -101,7 +103,7 @@ public class LetterHandler {
                 }
 
                 System.out.println("creating: " + s);
-                grid[i][j] = new Letter(sc.getScene(), j, i, color, font, s);
+                grid[i][j] = new Letter(sc.getScene(), j, i, color, font, s, prio);
                 grid[i][j].setX(x + j*grid[i][j].getWidth());
                 grid[i][j].setY(y + i*grid[i][j].getHeight());
 
@@ -111,7 +113,7 @@ public class LetterHandler {
     }
     private ArrayList<String> wordQueue;
     public void setText(String textIn) {
-        String[] parsed = textIn.split("\\W+");
+        String[] parsed = textIn.split("\\s+");
         //for (int i = 0; i < parsed.length; i++) {
         //    parsed[i] += " ";
         //}
@@ -126,7 +128,7 @@ public class LetterHandler {
         return wordQueue.get(0);
     }
     public void appendText(String textIn) {
-        String[] parsed = textIn.split("\\W+");
+        String[] parsed = textIn.split("\\s+");
         wordQueue.addAll(Arrays.asList(parsed));
 
     }
@@ -145,6 +147,13 @@ public class LetterHandler {
         for (int i = 0; i < gridHeight; i++) {
             for (int j = 0; j < gridWidth; j++) {
                 grid[i][j].is_visible = true;
+            }
+        }
+    }
+    public void hideNow(){
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
+                grid[i][j].is_visible = false;
             }
         }
     }

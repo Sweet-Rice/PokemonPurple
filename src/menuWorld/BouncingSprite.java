@@ -27,8 +27,9 @@ public class   BouncingSprite extends Sprite {
        ClockWorker.addTask(new Task(steps) {
            @Override
            public void run() {
-               if (iteration() == maxIteration()-1){
+               if (getY()>=20){
                    vibrate();
+                   setFinished();
                }
            }
        });

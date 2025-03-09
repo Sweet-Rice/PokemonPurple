@@ -15,6 +15,7 @@ public class Overworld {
 
     private SpriteComponent sc;
     public Player player;
+    private int stage = 0;
 
 
     //private Scene outside;
@@ -53,12 +54,16 @@ public class Overworld {
 
 
         card.addKeyListener(new KeyAdapter() {
-            int stage = 0;
+
             //0 = player
             //-1 = task in progress
             // 1 = dialogue click
             @Override
             public void keyPressed(KeyEvent e) {
+                System.out.println("caught key");
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    gm.switchSplash();
+                }
                 if (stage == 0&&!player.busy) {
 
                     if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -85,6 +90,31 @@ public class Overworld {
 
 
 
+
+
+    }
+    public void keyAction(KeyEvent e) {
+        System.out.println("caught key");
+        if (stage == 0&&!player.busy) {
+
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                player.moveDirection(0);
+
+            }
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                player.moveDirection(1);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                player.moveDirection(2);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                player.moveDirection(3);
+            }
+        }
+        if (stage == 1) {
+
+            System.out.println("attempted");
+        }
     }
 
 }

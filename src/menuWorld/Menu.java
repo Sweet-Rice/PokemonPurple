@@ -3,39 +3,28 @@ package menuWorld;
 import basicgraphics.*;
 import basicgraphics.images.Picture;
 import basicgraphics.sounds.ReusableClip;
-import generic.GameManager;
-import generic.GameScreen;
-import generic.TransitionSprite;
+import generic.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class Menu {
-    //private GameScreen gs;
 
     public final Card card;
 
     private SpriteComponent sc;
-    private SpriteComponent r;
-    private SpriteComponent g;
 
-//menu part
     private Red red;
     private Gary gary;
     private BouncingSprite bouncingsprite;
 
-//save part
-    private SaveSprite saveSprite;
-    //issue inside the sprite
+    private Scene scene,beginSequenceScene;
+    private LetterHandler topLh1, topLhShadow1, bottomLh1, bottomLhShadow1;
 
-    private Scene scene;
-    private Scene saveScene;
-    private Scene beginSequenceScene;
-
+    private int beginProg = 0;
 
     final ReusableClip titleClip = new ReusableClip("title3.wav");
     //final ReusableClip buttonClip = new ReusableClip("button1.wav");
@@ -53,51 +42,76 @@ public class Menu {
                 g.fillRect(0, 0, d.width, d.height);
             }
         };
-        this.r = new SpriteComponent();
-        this.g = new SpriteComponent();
 
         scene=sc.getScene();
-        this.beginSequenceScene = sc.getScene();
-        saveScene= sc.createScene();
-
+        this.beginSequenceScene = sc.createScene();
+        ClockWorker.initialize(33);
+        ClockWorker.addTask(sc.moveSprites());
         //sc.swapScene(scene);
 
+        card.addKeyListener(new KeyAdapter() {
+            //int stage = 0;
+            @Override
+            public void keyPressed(KeyEvent a) {
+                System.out.println("caught key");
+                if (a.getKeyCode()==KeyEvent.VK_RIGHT) {
+                    //initializeBeginSequence();
+                    System.out.println("aha");
+                    beginProg++;
+                }
+                if (beginProg == 0) {
+                    if (a.getKeyCode()==KeyEvent.VK_ENTER||a.getKeyCode()==KeyEvent.VK_Z) {
+                        ClockWorker.addTask(new Task(50){
+                            TransitionSprite spr = new TransitionSprite(sc.getScene(),1);
+                            @Override
+                            public void run() {
+                                if (iteration()==0){
+                                    spr.transition(true, 1);
+                                }
+                                if (iteration()==20){
+                                    spr.destroy();
+                                    initializeBeginSequence();
+                                    setFinished();
+                                    beginProg = 1;
+                                }
+                            }
+                        });
+                    }
+                }else if (beginProg == 1) {
+                    if (a.getKeyCode() == KeyEvent.VK_Z ){
+                        ClockWorker.addTask(new Task(20){
+                            @Override
+                            public void run() {
+                                if (iteration()==0){
+                                    topLh1.fadeOut(); topLhShadow1.fadeOut();
+                                    bottomLh1.fadeOut(); bottomLhShadow1.fadeOut();
+                                }
+                                if (iteration()==20){
+                                    beginProg =2;
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
         initializeMenu();
-        //this.gs = gs;
-
         this.gm = gr;
-
     }
 
     private void initializeMenu() {
 
-        ClockWorker.initialize(33);
         titleClip.loop();
 
         BasicLayout blayout = new BasicLayout();
         card.add(sc);
         sc.setLayout(blayout);
-
-
-
-        //sc.add("x=0,y=0,w=4,h=3",sc);
-        sc.add("x=0,y=3,w=1,h=3",r);
-        sc.add("x=3,y=3,w=1,h=3",g);
-
-
-
         ClockWorker.addTask(sc.moveSprites());
-        ClockWorker.addTask(r.moveSprites());
-        ClockWorker.addTask(g.moveSprites());
+        bouncingsprite = new BouncingSprite(scene, sc);
+        red = new Red(scene, sc);
+        gary = new Gary(scene, sc);
 
-        bouncingsprite = new BouncingSprite(sc.getScene(), sc);
-
-        red = new Red(r.getScene(), r);
-        gary = new Gary(g.getScene(), g);
-        //letter = new Letter(sc.getScene(),0,0);
-
-
-        //test
         InputStream fontStream = getClass().getResourceAsStream("/fonts/pokemon_fire_red.ttf");
         Font font = null;
         try {
@@ -108,96 +122,79 @@ public class Menu {
             throw new RuntimeException(e);
         }
 
-        JLabel title = new JLabel("Purple Version");
+        Font font1 = font.deriveFont(Font.BOLD, 60);
+        Font font2 = font.deriveFont(Font.BOLD, 30);
+        LetterHandler title = new LetterHandler(375, 300,400,100,sc, font1, new Color(138,43,226),"Purple Version", 9);
+        LetterHandler titleShadow = new LetterHandler(378, 302, 400, 100, sc, font1,Color.yellow,"Purple Version", 8);
+        title.showNow();titleShadow.showNow();
 
-        title.setFont(font.deriveFont(Font.BOLD, 50));
-        title.setForeground(Color.MAGENTA);
-        title.setOpaque(true);
-        title.setBackground(Color.WHITE);
-        title.setHorizontalAlignment(0);
+        LetterHandler play = new LetterHandler(415, 500, 400, 100, sc, font1, Color.BLACK,"Press Enter",10);
+        LetterHandler playShadow = new LetterHandler(418,502, 400, 100, sc, font1,Color.gray,"Press Enter",9);
 
-        sc.add( "x=1,y=3,w=2,h=1", title);
-
-        //card.add("m", title);
-
-        JButton startButton = new JButton("Start");
-        sc.add("x=1,y=5,w=2,h=1", startButton);
-
-
-        startButton.setFont(font.deriveFont(Font.BOLD, 100));
-
-        startButton.setForeground(Color.BLACK);
-        startButton.setBackground(Color.white);
-        startButton.setBorderPainted(false);
-
-
-        startButton.addActionListener(new ActionListener() {
+        play.showNow();playShadow.showNow();
+        ClockWorker.addTask(new Task() {
+            boolean hid = false;
             @Override
-            public void actionPerformed(ActionEvent e){
-                //  buttonClip.playOverlapping();
-
-                //titleClip.stop();
-                //optimally shouldn't need to do all this. will figure out eventually
-                ///*
-
-                //*/
-                sc.remove(startButton);
-                sc.remove(g);
-                sc.remove(r);
-                sc.remove(title);
-
-                ClockWorker.addTask(new Task(50){
-                    TransitionSprite spr = new TransitionSprite(sc.getScene(),1);
-                    @Override
-                    public void run() {
-                        if (iteration()==0){
-
-                            spr.transition(true, 1);
-                        }
-                        if (iteration()==20){
-                            spr.destroy();
-                            initializeBeginSequence();
-
-                            //initializeSaveSc();
-                            //initializeBeginSequence();
-                        }
+            public void run() {
+                if (iteration()%20==0){
+                    if (hid){
+                        play.showNow();playShadow.showNow();
+                        hid=false;
+                    } else {
+                        play.hideNow();playShadow.hideNow();
+                        hid=true;
                     }
-                });
-                //gm.switchGame();
-
+                }
             }
         });
-
-
     }
     private void initializeBeginSequence() {
+
         sc.swapScene(beginSequenceScene);
-        //sc.setPreferredSize(new Dimension(100, 100));
+        sc.setPreferredSize(new Dimension(900, 600));
+
+        System.out.println(sc.getPreferredSize().width + " "+ sc.getPreferredSize().height);
        TransitionSprite transitionSprite = new TransitionSprite(beginSequenceScene,1);
         transitionSprite.transition(false, 1);
         Sprite introBox = new Sprite(beginSequenceScene);
         introBox.setDrawingPriority(1);
 
         introBox.setPicture(new Picture("introBox.png"));
-        //introBox.setX((sc.getWidth()-introBox.getWidth())/2);
-        System.out.println(introBox.getWidth()+" "+introBox.getHeight());
-        System.out.println(sc.getSize().getWidth()+" "+sc.getSize().getHeight());
+        MenuChu chu = new MenuChu(beginSequenceScene);
+
+        InputStream fontStream = getClass().getResourceAsStream("/fonts/pokemon_fire_red.ttf");
+        Font font = null;
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        font = font.deriveFont(Font.PLAIN, 57);
+        int grayOffset = 60;
+        String string1 = "Welcome to Pokemon Purple! " +
+                "Here are the controls: " +
+                "";
+
+
+        Color gray = new Color(90,90,90);
+        topLh1 = new LetterHandler(40, 140, 820, 200,sc,font, gray,string1,50 );
+        topLhShadow1 = new LetterHandler(43, 142, 800, 200,sc,font, Color.lightGray,string1,49);
+        topLh1.fadeIn(); topLhShadow1.fadeIn();
+
+        String string2 = "The SELECT button is (SHIFT)." +
+                " Use the arrow keys to move. " +
+                "Use the A(Z) button to select, " +
+                "or the B(X) button to go back." +
+                " START(ENTER) will open your menu. " +
+                "Use A(Z) to chat.";
+        bottomLh1 = new LetterHandler(40, 250, 700, 400,sc,font, gray,string2,50);
+        bottomLhShadow1 = new LetterHandler(43, 252, 700, 400,sc,font, Color.lightGray,string2,49);
+        bottomLh1.fadeIn(); bottomLhShadow1.fadeIn();
+
+
+
+
     }
-    private void initializeSaveSc(){
-        //Picture white = new Picture("white.jpg");
-        //white.setBackground(Color.white);
-        //saveScene.setPainter(new BackgroundPainter( white));
-        sc.swapScene(saveScene);
-        saveSprite = new SaveSprite(saveScene, sc);
-
-        TransitionSprite transitionSprite = new TransitionSprite(saveScene,1);
-        transitionSprite.transition(false, 1);
-        ClockWorker.initialize(33);
-        ClockWorker.addTask(sc.moveSprites());
-        BasicLayout blayout1 = new BasicLayout();
-
-
-
-    }
-
 }

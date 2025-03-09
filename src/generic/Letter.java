@@ -12,12 +12,14 @@ public class Letter extends Sprite {
     private Color color;
     private Font font;
     private BufferedImage realImage;
-    public Letter(Scene sc, int x, int y, Color color, Font font, String letter) {
+    private int prio;
+    public Letter(Scene sc, int x, int y, Color color, Font font, String letter, int prio) {
         super(sc);
         //font should be declared outside of letter and outside of letterhandler
         this.font = font;
         this.color = color;
-        setDrawingPriority(10);
+        this.prio = prio;
+        setDrawingPriority(prio);
         is_visible = false;
         setPicture(new Picture(setLetter(letter)));
 
@@ -71,7 +73,8 @@ public class Letter extends Sprite {
 
     }
     public void fadeIn(){
-        ClockWorker.addTask(new Task() {
+        is_visible = true;
+        ClockWorker.addTask(new Task(50) {
             @Override
             public void run() {
                 BufferedImage tempImage = new BufferedImage(realImage.getWidth(), realImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
@@ -87,7 +90,7 @@ public class Letter extends Sprite {
                     tempG.drawString("l", textWidth/5, baselineY);
                 }
                 else tempG.drawString(letter, textX, baselineY);
-                setDrawingPriority(10);
+                setDrawingPriority(prio);
                 setPicture( new Picture(tempImage));
             }
         });
@@ -113,7 +116,7 @@ public class Letter extends Sprite {
                     tempG.drawString("l", textWidth/5, baselineY);
                 }
                 else tempG.drawString(letter, textX, baselineY);
-                setDrawingPriority(10);
+                setDrawingPriority(prio);
                 setPicture( new Picture(tempImage));
             }
         });
