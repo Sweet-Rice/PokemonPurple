@@ -87,7 +87,8 @@ public class Menu {
                                     bottomLh1.fadeOut(); bottomLhShadow1.fadeOut();
                                 }
                                 if (iteration()==20){
-                                    beginProg =2;
+                                    TransitionSprite spr = new TransitionSprite(sc.getScene(),0);
+                                    spr.transition(true, 4);
                                 }
                             }
                         });
