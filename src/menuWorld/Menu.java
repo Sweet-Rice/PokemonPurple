@@ -34,14 +34,9 @@ public class Menu {
 
     public Menu(BasicFrame frame, GameManager gr) {
         card = frame.getCard();
-        this.sc = new SpriteComponent(){
-        @Override
-            public void paintBackground(Graphics g) {
-                Dimension d = getSize();
-                g.setColor(Color.WHITE);
-                g.fillRect(0, 0, d.width, d.height);
-            }
-        };
+        this.sc = new SpriteComponent();
+        sc.setPreferredSize(new Dimension(900, 600));
+        System.out.println(sc.getPreferredSize().getWidth()+ " "+sc.getPreferredSize().getHeight());
 
         scene=sc.getScene();
         this.beginSequenceScene = sc.createScene();
@@ -79,7 +74,7 @@ public class Menu {
                     }
                 }else if (beginProg == 1) {
                     if (a.getKeyCode() == KeyEvent.VK_Z ){
-                        ClockWorker.addTask(new Task(20){
+                        ClockWorker.addTask(new Task(40){
                             @Override
                             public void run() {
                                 if (iteration()==0){
@@ -90,6 +85,7 @@ public class Menu {
                                     TransitionSprite spr = new TransitionSprite(sc.getScene(),0);
                                     spr.transition(true, 1);
                                 }
+                                if (iteration()==40){gm.switchOak();}
                             }
                         });
 
@@ -125,12 +121,12 @@ public class Menu {
 
         Font font1 = font.deriveFont(Font.BOLD, 60);
         Font font2 = font.deriveFont(Font.BOLD, 30);
-        LetterHandler title = new LetterHandler(375, 300,400,100,sc, font1, new Color(138,43,226),"Purple Version", 9);
-        LetterHandler titleShadow = new LetterHandler(378, 302, 400, 100, sc, font1,Color.yellow,"Purple Version", 8);
+        LetterHandler title = new LetterHandler(310, 300,400,100,sc, font1, new Color(138,43,226),"Purple Version", 9);
+        LetterHandler titleShadow = new LetterHandler(313, 302, 400, 100, sc, font1,Color.yellow,"Purple Version", 8);
         title.showNow();titleShadow.showNow();
 
-        LetterHandler play = new LetterHandler(415, 500, 400, 100, sc, font1, Color.BLACK,"Press Enter",10);
-        LetterHandler playShadow = new LetterHandler(418,502, 400, 100, sc, font1,Color.gray,"Press Enter",9);
+        LetterHandler play = new LetterHandler(355, 500, 400, 100, sc, font1, Color.BLACK,"Press Enter",10);
+        LetterHandler playShadow = new LetterHandler(358,502, 400, 100, sc, font1,Color.gray,"Press Enter",9);
 
         play.showNow();playShadow.showNow();
         ClockWorker.addTask(new Task() {

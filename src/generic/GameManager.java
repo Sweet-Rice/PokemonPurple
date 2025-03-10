@@ -1,5 +1,6 @@
 package generic;
 
+import OakLectureWorld.OakLecture;
 import basicgraphics.BasicFrame;
 import basicgraphics.ClockWorker;
 import basicgraphics.Task;
@@ -64,6 +65,27 @@ public class GameManager {
             }
         });
 
+    }
+    public void switchOak(){
+        currentCard = 2;
+         OakLecture oakLecture = new OakLecture(frame, this);
+
+         oakLecture.card.showCard();
+         oakLecture.card.requestFocusInWindow();
+         ClockWorker.addTask(new Task(20) {
+
+             @Override
+             public void run() {
+                 if (!oakLecture.card.isFocusOwner()) {
+                     System.out.println("is not owner");
+                     oakLecture.card.requestFocusInWindow();
+                 } else {
+                     System.out.println("is owner");
+                     setFinished();
+
+                 }
+             }
+         });
     }
     public void switchGame() {
         currentCard = 1;

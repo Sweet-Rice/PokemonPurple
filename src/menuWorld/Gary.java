@@ -28,8 +28,8 @@ public class Gary extends Sprite {
         ClockWorker.addTask(new Task() {
             @Override
             public void run() {
-                if (getX()<=775){
-                    setX(775);
+                if (getX()<=650){
+                    setX(650);
                     setVel(0,0);
                     setFinished();
                 }

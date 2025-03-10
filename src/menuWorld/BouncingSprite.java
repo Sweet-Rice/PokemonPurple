@@ -21,7 +21,7 @@ public class   BouncingSprite extends Sprite {
         setPicture(initialPic);
         Dimension d = sc.getSize();
         setVelY(10);
-        setX(150);
+        setX(80);
         setY(-200);
         final int steps = 25;
        ClockWorker.addTask(new Task(steps) {

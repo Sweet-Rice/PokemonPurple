@@ -12,7 +12,7 @@ public class MenuChu extends Sprite {
         setX(0);
         setY(-10);
         setDrawingPriority(10);
-        setPicture(new Picture("pikachus1.png"));
+        setPicture(new Picture("pikachu1.png"));
         ClockWorker.addTask(new Task() {
             boolean swap = false;
             @Override
