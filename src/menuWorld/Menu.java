@@ -88,7 +88,7 @@ public class Menu {
                                 }
                                 if (iteration()==20){
                                     TransitionSprite spr = new TransitionSprite(sc.getScene(),0);
-                                    spr.transition(true, 4);
+                                    spr.transition(true, 1);
                                 }
                             }
                         });
@@ -150,7 +150,8 @@ public class Menu {
         });
     }
     private void initializeBeginSequence() {
-
+        ClockWorker.finish();
+        ClockWorker.initialize(33);
         sc.swapScene(beginSequenceScene);
         sc.setPreferredSize(new Dimension(900, 600));
 
@@ -161,7 +162,6 @@ public class Menu {
         introBox.setDrawingPriority(1);
 
         introBox.setPicture(new Picture("introBox.png"));
-        MenuChu chu = new MenuChu(beginSequenceScene);
 
         InputStream fontStream = getClass().getResourceAsStream("/fonts/pokemon_fire_red.ttf");
         Font font = null;

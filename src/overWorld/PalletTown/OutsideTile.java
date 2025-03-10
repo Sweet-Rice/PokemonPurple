@@ -8,7 +8,9 @@ import overWorld.TileHandler;
 import java.util.Random;
 
 public class OutsideTile extends NotSoAbstractTile {
-private TileHandler tileHandler;
+
+
+    private TileHandler tileHandler;
     public OutsideTile(Scene sc, int type, boolean walkable, int x, int y, TileHandler tileHandler) {
         super(sc, type, walkable, x, y, tileHandler);
         //System.out.println("created outside tile");

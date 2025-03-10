@@ -55,6 +55,7 @@ private boolean fadeOut;
                 graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
                 setDrawingPriority(100);
                 setPicture(new Picture(newImage));
+                if (speed==255){setFinished();}
             }
         });
     }
@@ -72,6 +73,7 @@ private boolean fadeOut;
                 graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
                 setDrawingPriority(100);
                 setPicture(new Picture(newImage));
+                if (speed == 255)setFinished();
             }
         });
     }

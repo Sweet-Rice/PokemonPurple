@@ -31,6 +31,7 @@ public class Gary extends Sprite {
                 if (getX()<=775){
                     setX(775);
                     setVel(0,0);
+                    setFinished();
                 }
             }
         });

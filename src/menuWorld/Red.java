@@ -30,6 +30,7 @@ public class Red extends Sprite {
                 if (getX()>=0){
                     setX(0);
                     setVel(0,0);
+                    setFinished();
                 }
             }
         });
