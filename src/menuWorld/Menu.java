@@ -30,7 +30,7 @@ public class Menu {
     //final ReusableClip buttonClip = new ReusableClip("button1.wav");
 
     GameManager gm;
-
+    private boolean begin = true, lecture = true;
 
     public Menu(BasicFrame frame, GameManager gr) {
         card = frame.getCard();
@@ -44,19 +44,17 @@ public class Menu {
         ClockWorker.addTask(sc.moveSprites());
         //sc.swapScene(scene);
 
+
         card.addKeyListener(new KeyAdapter() {
             //int stage = 0;
             @Override
             public void keyPressed(KeyEvent a) {
                 System.out.println("caught key");
-                if (a.getKeyCode()==KeyEvent.VK_RIGHT) {
-                    //initializeBeginSequence();
-                    System.out.println("aha");
-                    beginProg++;
-                }
                 if (beginProg == 0) {
-                    if (a.getKeyCode()==KeyEvent.VK_ENTER||a.getKeyCode()==KeyEvent.VK_Z) {
+                    if (((a.getKeyCode()==KeyEvent.VK_ENTER||a.getKeyCode()==KeyEvent.VK_Z))&&begin) {
+                        begin = false;
                         ClockWorker.addTask(new Task(50){
+
                             TransitionSprite spr = new TransitionSprite(sc.getScene(),1);
                             @Override
                             public void run() {
@@ -73,7 +71,8 @@ public class Menu {
                         });
                     }
                 }else if (beginProg == 1) {
-                    if (a.getKeyCode() == KeyEvent.VK_Z ){
+                    if ((a.getKeyCode() == KeyEvent.VK_Z )&&lecture) {
+                        lecture = false;
                         ClockWorker.addTask(new Task(40){
                             @Override
                             public void run() {

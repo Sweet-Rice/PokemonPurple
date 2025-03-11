@@ -2,6 +2,7 @@ package overWorld;
 
 import basicgraphics.*;
 import generic.GameManager;
+import generic.TransitionSprite;
 import overWorld.PalletTown.PalletTown;
 
 import java.awt.*;
@@ -51,7 +52,8 @@ public class Overworld {
 
         ClockWorker.initialize(33);
         ClockWorker.addTask(sc.moveSprites());
-
+        TransitionSprite spr = new TransitionSprite(sc.getScene(), 0);
+        spr.transition(false, 5);
 
         card.addKeyListener(new KeyAdapter() {
 

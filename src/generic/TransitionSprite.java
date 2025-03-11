@@ -22,7 +22,7 @@ private boolean fadeOut;
         //gaol 0 is black goal 1 is white
         this.goal = goal;
 
-        this.image = new BufferedImage(sc.getSpriteComponent().getPreferredSize().width, sc.getSpriteComponent().getPreferredSize().height, BufferedImage.TYPE_INT_ARGB);
+        this.image = new BufferedImage(sc.getSpriteComponent().getPreferredSize().width+200, sc.getSpriteComponent().getPreferredSize().height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = image.createGraphics();
 
 

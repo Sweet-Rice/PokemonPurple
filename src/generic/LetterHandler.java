@@ -37,6 +37,8 @@ public class LetterHandler {
     int letterHeight;
     int letterWidth;
 
+    LetterHandler shadow;
+
     public LetterHandler(double x, double y, double width, double height, SpriteComponent sc, Font font, Color color, String string, int prio) {
         this.width = (int) width;
         this.height = (int) height;
@@ -149,6 +151,7 @@ public class LetterHandler {
                 grid[i][j].is_visible = true;
             }
         }
+        if (shadow != null) {shadow.showNow();}
     }
     public void hideNow(){
         for (int i = 0; i < gridHeight; i++) {
@@ -156,6 +159,7 @@ public class LetterHandler {
                 grid[i][j].is_visible = false;
             }
         }
+        if (shadow!=null) {shadow.hideNow();}
     }
     public void showStrings(){
         ClockWorker.addTask(new Task() {
@@ -177,19 +181,27 @@ public class LetterHandler {
                 }
             }
         });
+        if (shadow!=null) {shadow.showStrings();}
     }
     public void fadeIn(){
         for (int i = 0; i < gridHeight; i++) {
             for (int j = 0; j < gridWidth; j++) {
                 grid[i][j].fadeIn();
+
             }
         }
+        if (shadow!=null)shadow.fadeIn();
     }
     public void fadeOut(){
         for (int i = 0; i < gridHeight; i++) {
             for (int j = 0; j < gridWidth; j++) {
                 grid[i][j].fadeOut();
+
             }
         }
+        if (shadow!=null)shadow.fadeOut();
+    }
+    public void shadow(){
+        shadow = new LetterHandler(x+2, y+2, width, height, sc, font, Color.lightGray, string, prio-1);
     }
 }
