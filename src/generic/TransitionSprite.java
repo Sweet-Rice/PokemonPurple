@@ -24,9 +24,6 @@ private boolean fadeOut;
 
         this.image = new BufferedImage(sc.getSpriteComponent().getPreferredSize().width+200, sc.getSpriteComponent().getPreferredSize().height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = image.createGraphics();
-
-
-
     }
     private void setTransition(int opacity) {
         if (goal == 1) {
@@ -73,7 +70,10 @@ private boolean fadeOut;
                 graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
                 setDrawingPriority(100);
                 setPicture(new Picture(newImage));
-                if (speed == 255)setFinished();
+                if (speed == 255){
+                    setFinished();
+                    waitfordeath();
+                }
             }
         });
     }
@@ -91,5 +91,13 @@ private boolean fadeOut;
         if (fadeOut) {
             perform1(velocity);
         } else {perform(velocity);}
+    }
+    private void waitfordeath(){
+        ClockWorker.addTask(new Task(100) {
+            @Override
+            public void run() {
+                if( iteration()==maxIteration())destroy();
+            }
+        });
     }
 }

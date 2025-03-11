@@ -22,7 +22,7 @@ public class Menu {
     private BouncingSprite bouncingsprite;
 
     private Scene scene,beginSequenceScene;
-    private LetterHandler topLh1, topLhShadow1, bottomLh1, bottomLhShadow1;
+    private LetterHandler topLh1, title, bottomLh1, play;
 
     private int beginProg = 0;
 
@@ -63,8 +63,9 @@ public class Menu {
                                 }
                                 if (iteration()==20){
                                     spr.destroy();
-                                    //initializeBeginSequence();
-                                    gm.switchGame();
+
+                                    initializeBeginSequence();
+                                    //gm.switchGame();
                                     setFinished();
                                     beginProg = 1;
                                 }
@@ -78,10 +79,13 @@ public class Menu {
                             @Override
                             public void run() {
                                 if (iteration()==0){
-                                    topLh1.fadeOut(); topLhShadow1.fadeOut();
-                                    bottomLh1.fadeOut(); bottomLhShadow1.fadeOut();
+                                    topLh1.fadeOut();
+                                    bottomLh1.fadeOut();
+
                                 }
                                 if (iteration()==20){
+                                    topLh1.destroy();
+                                    bottomLh1.destroy();
                                     TransitionSprite spr = new TransitionSprite(sc.getScene(),0);
                                     spr.transition(true, 1);
                                 }
@@ -121,24 +125,25 @@ public class Menu {
 
         Font font1 = font.deriveFont(Font.BOLD, 60);
         Font font2 = font.deriveFont(Font.BOLD, 30);
-        LetterHandler title = new LetterHandler(310, 300,400,100,sc, font1, new Color(138,43,226),"Purple Version", 9);
-        LetterHandler titleShadow = new LetterHandler(313, 302, 400, 100, sc, font1,Color.yellow,"Purple Version", 8);
-        title.showNow();titleShadow.showNow();
+        title = new LetterHandler(310, 300,400,100,sc, font1, new Color(138,43,226),"Purple Version", 9);
+        title.shadow();
+        title.showNow();
 
-        LetterHandler play = new LetterHandler(355, 500, 400, 100, sc, font1, Color.BLACK,"Press Enter",10);
-        LetterHandler playShadow = new LetterHandler(358,502, 400, 100, sc, font1,Color.gray,"Press Enter",9);
+        play = new LetterHandler(355, 500, 400, 100, sc, font1, Color.BLACK,"Press Enter",10);
+        //LetterHandler playShadow = new LetterHandler(358,502, 400, 100, sc, font1,Color.gray,"Press Enter",9);
+        play.shadow();
 
-        play.showNow();playShadow.showNow();
+        play.showNow();
         ClockWorker.addTask(new Task() {
             boolean hid = false;
             @Override
             public void run() {
                 if (iteration()%20==0){
                     if (hid){
-                        play.showNow();playShadow.showNow();
+                        play.showNow();
                         hid=false;
                     } else {
-                        play.hideNow();playShadow.hideNow();
+                        play.hideNow();
                         hid=true;
                     }
                 }
@@ -148,6 +153,12 @@ public class Menu {
     private void initializeBeginSequence() {
         ClockWorker.finish();
         ClockWorker.initialize(33);
+        red.destroy();
+        gary.destroy();
+        bouncingsprite.destroy();
+        title.destroy();
+        play.destroy();
+
         sc.swapScene(beginSequenceScene);
         sc.setPreferredSize(new Dimension(900, 600));
 
@@ -177,8 +188,9 @@ public class Menu {
 
         Color gray = new Color(90,90,90);
         topLh1 = new LetterHandler(40, 140, 820, 200,sc,font, gray,string1,50 );
-        topLhShadow1 = new LetterHandler(43, 142, 800, 200,sc,font, Color.lightGray,string1,49);
-        topLh1.fadeIn(); topLhShadow1.fadeIn();
+        topLh1.shadow();
+        //topLhShadow1 = new LetterHandler(43, 142, 800, 200,sc,font, Color.lightGray,string1,49);
+        topLh1.fadeIn();
 
         String string2 = "The SELECT button is (SHIFT)." +
                 " Use the arrow keys to move. " +
@@ -187,8 +199,9 @@ public class Menu {
                 " START(ENTER) will open your menu. " +
                 "Use A(Z) to chat.";
         bottomLh1 = new LetterHandler(40, 250, 700, 400,sc,font, gray,string2,50);
-        bottomLhShadow1 = new LetterHandler(43, 252, 700, 400,sc,font, Color.lightGray,string2,49);
-        bottomLh1.fadeIn(); bottomLhShadow1.fadeIn();
+        bottomLh1.shadow();
+
+        bottomLh1.fadeIn();
 
 
 

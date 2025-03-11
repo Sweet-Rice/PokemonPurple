@@ -24,7 +24,7 @@ public class OakLecture {
 
     private String player, rival;
 
-    private LetterHandler lh1, lh1one, lh2, lh3, lh4, lh5, lh6, lh7, lh8, lh9, lh10, lh11, lh12, lh13, lh14, lh15, lh16, lh17;
+    private LetterHandler lh1, lh1one, lh2, lh3, lh4, lh5, lh6, lh7, lh8, lh9, lh10;
 
     private SpriteComponent sc;
     GameManager gm;
@@ -74,54 +74,63 @@ public class OakLecture {
                     switch (state){
                         case 1->{
                             lh1.hideNow();lh1one.hideNow();
+                            lh1.destroy();lh1one.destroy();
                             lh2.showStrings();
                             redArrow.is_visible = false;
                             await(50);
                         }
                         case 2->{
                             lh2.hideNow();
+                            lh2.destroy();
                             lh3.showStrings();
                             redArrow.is_visible = false;
                             await(30);
                         }
                         case 3 ->{
                             lh3.hideNow();
+                            lh3.destroy();
                             lh4.showStrings();
                             redArrow.is_visible = false;
                             await(60);
                         }
                         case 4 ->{
                             lh4.hideNow();
+                            lh4.destroy();
                             lh5.showStrings();
                             redArrow.is_visible = false;
                             await(40);
                         }
                         case 5 ->{
                             lh5.hideNow();
+                            lh5.destroy();
                             lh6.showStrings();
                             redArrow.is_visible = false;
                             await(80);
                         }
                         case 6 ->{
                             lh6.hideNow();
+                            lh6.destroy();
                             lh7.showStrings();
                             redArrow.is_visible = false;
                             await(90);
                         }
                         case 7 ->{
                             lh7.hideNow();
+                            lh7.destroy();
                             lh8.showStrings();
                             redArrow.is_visible = false;
                             await(40);
                         }
                         case 8 ->{
                             lh8.hideNow();
+                            lh8.destroy();
                             lh9.showStrings();
                             redArrow.is_visible = false;
                             await(40);
                         }
                         case 9 ->{
                             lh9.hideNow();
+                            lh9.destroy();
                             lh10.showStrings();
                             redArrow.is_visible = false;
                             await(80);
@@ -134,6 +143,8 @@ public class OakLecture {
                                 @Override
                                 public void run() {
                                     if (iteration()==maxIteration()){
+                                        lh10.destroy();
+                                        redArrow.destroy();
                                      gm.switchGame();
                                     }
                                 }

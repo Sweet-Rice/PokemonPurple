@@ -204,4 +204,12 @@ public class LetterHandler {
     public void shadow(){
         shadow = new LetterHandler(x+2, y+2, width, height, sc, font, Color.lightGray, string, prio-1);
     }
+    public void destroy(){
+        for (int i = 0; i < gridHeight; i++) {
+            for (int j = 0; j < gridWidth; j++) {
+                grid[i][j].destroy();
+            }
+        }
+        if (shadow!=null) {shadow.destroy();}
+    }
 }
