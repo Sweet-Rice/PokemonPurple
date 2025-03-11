@@ -2,6 +2,7 @@ package overWorld;
 
 import basicgraphics.Scene;
 import basicgraphics.images.Picture;
+import generic.CsvHandler;
 
 import java.awt.*;
 
@@ -44,7 +45,7 @@ public abstract class TileHandler {
             for ( x = 0; x < gridWidth; x++) {
 
                 grid[y][x] = initTile(grid[y][x]);
-                if (y<paddingY||y>=gridHeight-paddingY||x<paddingX||x>gridWidth-paddingX) {
+                if (y<paddingY||y>=gridHeight-paddingY||x<paddingX||x>=gridWidth-paddingX) {
                     grid[y][x].walkable = false;
 
 
@@ -106,6 +107,20 @@ public abstract class TileHandler {
         }
         System.out.println("No walkable tile found");
         return null;
+    }
+    public int getUsableGridHeight() {
+        return gridHeight-(2*paddingY);
+    }
+    public int getUsableGridWidth() {
+        return gridWidth-(2*paddingX);
+    }
+    public void updateGrid(String filename){
+        String[][] data = CsvHandler.getData(filename, this);
+        for (int i = 0; i<getUsableGridHeight(); i++) {
+            for (int j = 0; j<getUsableGridWidth(); j++) {
+                grid[getY(i)][getX(j)].update(data[i][j]);
+            }
+        }
     }
 }
 

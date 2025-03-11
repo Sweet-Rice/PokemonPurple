@@ -1,13 +1,59 @@
 package generic;
 
+import basicgraphics.FileUtility;
+import overWorld.TileHandler;
+
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CsvHandler {
     private final String DATA_FILE;
     //private static final String[] DATA_HEADER = {"player, bob"};
     // arrays are nasty, just do a string
 
+
+
+    public static String[][] getData(String fileName, TileHandler tileHandler) {
+        String[][] data = new String[tileHandler.getUsableGridHeight()][tileHandler.getUsableGridWidth()];
+        try {
+            //FileReader fr = new FileReader(fileName);
+            URI src = FileUtility.findFile(fileName);
+            if (src == null) {throw new NullPointerException("File not found: " + fileName);}
+            BufferedReader br = new BufferedReader(new InputStreamReader(src.toURL().openStream()));
+
+            String line = br.readLine();
+            int y = 0;
+            while (line != null) {
+                List<String> lineData = Arrays.asList(line.split(","));
+                if (y<tileHandler.getUsableGridHeight()) {
+                    for (int i = 0; i < tileHandler.getUsableGridWidth(); i++) {
+                        data[y][i] = lineData.get(i);
+                        System.out.println(data[y][i]);
+                    }
+                    y++;
+                    line = br.readLine();
+                }
+                for (int i = 0; i < tileHandler.getUsableGridHeight(); i++) {
+                    for (int j = 0; j < tileHandler.getUsableGridWidth(); j++) {
+                        System.out.print(data[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
     private int columns = 2;
 
     public CsvHandler(String filename) throws IOException {

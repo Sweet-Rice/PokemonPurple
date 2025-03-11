@@ -76,4 +76,7 @@ public abstract class NotSoAbstractTile extends Sprite {
     public void setBehavior(int behavior) {
         this.behavior = behavior;
     }
+    public void update(String string){
+        System.out.println("updated " + string);
+    }
 }

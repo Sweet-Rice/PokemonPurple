@@ -63,7 +63,8 @@ public class Menu {
                                 }
                                 if (iteration()==20){
                                     spr.destroy();
-                                    initializeBeginSequence();
+                                    //initializeBeginSequence();
+                                    gm.switchGame();
                                     setFinished();
                                     beginProg = 1;
                                 }

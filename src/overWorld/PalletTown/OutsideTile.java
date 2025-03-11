@@ -45,4 +45,13 @@ public class OutsideTile extends NotSoAbstractTile {
             }
         }
     }
+    @Override
+    public void update(String string){
+        if (string.charAt(1) == '1'){
+            walkable = true;
+        } else {walkable = false;}
+        if (string.charAt(0) == 'a'){
+            setPicture(new Picture("outsidefloor_00.png"));
+        }
+    }
 }

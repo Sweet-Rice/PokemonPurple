@@ -40,10 +40,10 @@ public class PalletTown implements GlobalFunc {
 
     }
     private void initOutside() {
-        outside.setBackgroundSize(new Dimension(48*25,48*15));
+        //outside.setBackgroundSize(new Dimension(48*25,48*15));
 
 
-        outsideTileHandler = new TileHandler(outside,25,15) {
+        outsideTileHandler = new TileHandler(outside,3,3) {
             @Override
             public void additionalInit() {
                 System.out.println("I am outsideTileHandler."+this.scene.toString());
@@ -77,7 +77,7 @@ public class PalletTown implements GlobalFunc {
 
         };
 
-
+        outsideTileHandler.updateGrid("generic/outside1.csv");
         System.out.println("Pallet Town");
         //these next few lines in particular are how to set up special event tiles.
 
