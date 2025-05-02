@@ -3,6 +3,7 @@ package OakLectureWorld;
 import basicgraphics.*;
 import basicgraphics.images.BackgroundPainter;
 import basicgraphics.images.Picture;
+import basicgraphics.sounds.ReusableClip;
 import generic.GameManager;
 import generic.LetterHandler;
 import generic.TransitionSprite;
@@ -25,13 +26,14 @@ public class OakLecture {
     private String player, rival;
 
     private LetterHandler lh1, lh1one, lh2, lh3, lh4, lh5, lh6, lh7, lh8, lh9, lh10;
-
+    private final ReusableClip clip;
     private SpriteComponent sc;
     GameManager gm;
 
     public OakLecture(BasicFrame frame, GameManager gm) {
         this.card = frame.getCard();
         this.gm = gm;
+        clip = new ReusableClip("lab.zip");
         this.sc = new SpriteComponent();
         sc.setPreferredSize(new Dimension(900,600));
         card.createSingletonLayout(sc);
@@ -61,6 +63,7 @@ public class OakLecture {
                 if (iteration()==maxIteration()){
                     state = 1;
                     initLecture();
+                    clip.play();
                 }
             }
         });
@@ -145,6 +148,7 @@ public class OakLecture {
                                     if (iteration()==maxIteration()){
                                         lh10.destroy();
                                         redArrow.destroy();
+                                        clip.stop();
                                      gm.switchGame();
                                     }
                                 }
@@ -163,6 +167,9 @@ public class OakLecture {
         textBox.setDrawingPriority(2);
         textBox.setPicture(new Picture("textBoxLarge.png"));
         textBox.setX(20);textBox.setY(440);
+
+
+        //clip.play();
 
         int x, y;
         x = (int)textBox.getX()+50;

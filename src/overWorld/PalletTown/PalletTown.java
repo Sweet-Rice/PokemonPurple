@@ -2,6 +2,7 @@ package overWorld.PalletTown;
 
 import basicgraphics.*;
 import basicgraphics.images.Picture;
+import basicgraphics.sounds.ReusableClip;
 import overWorld.GlobalFunc;
 import overWorld.NotSoAbstractTile;
 import overWorld.Overworld;
@@ -41,6 +42,8 @@ public class PalletTown implements GlobalFunc {
     }
     private void initOutside() {
         //outside.setBackgroundSize(new Dimension(48*25,48*15));
+        ReusableClip clip = new ReusableClip("town.zip");
+        clip.play();
 
 
         outsideTileHandler = new TileHandler(outside,3,3) {

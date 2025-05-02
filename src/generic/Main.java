@@ -1,6 +1,8 @@
 package generic;
 
 import basicgraphics.BasicFrame;
+import basicgraphics.ClockWorker;
+import basicgraphics.Task;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,5 +11,11 @@ public class Main {
         bf.setResize();
         //FontLoader.loadAllFonts();
         bf.show();
+        ClockWorker.addTask(new Task() {
+            @Override
+            public void run() {
+                System.gc();
+            }
+        });
     }
 }

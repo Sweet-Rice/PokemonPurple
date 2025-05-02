@@ -26,7 +26,7 @@ public class Menu {
 
     private int beginProg = 0;
 
-    final ReusableClip titleClip = new ReusableClip("title3.wav");
+    final ReusableClip titleClip = new ReusableClip("title.wav");
     //final ReusableClip buttonClip = new ReusableClip("button1.wav");
 
     GameManager gm;
@@ -89,7 +89,10 @@ public class Menu {
                                     TransitionSprite spr = new TransitionSprite(sc.getScene(),0);
                                     spr.transition(true, 1);
                                 }
-                                if (iteration()==40){gm.switchOak();}
+                                if (iteration()==40){
+                                    titleClip.loop();
+                                    titleClip.stop();
+                                    gm.switchOak();}
                             }
                         });
 
@@ -104,6 +107,7 @@ public class Menu {
     private void initializeMenu() {
 
         titleClip.loop();
+        titleClip.play();
 
         BasicLayout blayout = new BasicLayout();
         card.add(sc);
@@ -176,6 +180,7 @@ public class Menu {
             font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
