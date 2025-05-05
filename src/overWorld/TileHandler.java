@@ -50,7 +50,7 @@ public abstract class TileHandler {
 
 
                     //placeholder till i figure smt out
-                    grid[y][x].setPicture(new Picture("outsidefloor_39.png"));
+                    grid[y][x].setPicture(new Picture("outsidefloor_127.png"));
                 }
 
             }

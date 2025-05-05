@@ -3,14 +3,14 @@ package overWorld.PalletTown;
 import basicgraphics.*;
 import basicgraphics.images.Picture;
 import basicgraphics.sounds.ReusableClip;
-import overWorld.GlobalFunc;
+
 import overWorld.NotSoAbstractTile;
 import overWorld.Overworld;
 import overWorld.TileHandler;
 
 import java.awt.*;
 
-public class PalletTown implements GlobalFunc {
+public class PalletTown {
 
     private SpriteComponent sc;
 
@@ -33,7 +33,9 @@ public class PalletTown implements GlobalFunc {
         System.out.println("I am a playerHouse."+playerHouse.toString());
         this.oakLab = sc.createScene();
         this.garyHouse = sc.createScene();
-
+        ReusableClip clip = new ReusableClip("town.zip");
+        clip.loop();
+        clip.play();
         initOutside();
         initPlayerHouse();
 
@@ -42,8 +44,8 @@ public class PalletTown implements GlobalFunc {
     }
     private void initOutside() {
         //outside.setBackgroundSize(new Dimension(48*25,48*15));
-        ReusableClip clip = new ReusableClip("town.zip");
-        clip.play();
+
+
 
 
         outsideTileHandler = new TileHandler(outside,3,3) {
@@ -117,19 +119,4 @@ public class PalletTown implements GlobalFunc {
         //migrate player sprite and put bro in the top
     }
 
-    @Override
-    public void fly() {
-        //tp on pokecenter
-    }
-
-    @Override
-    public void respawn() {
-        //spawn in pokecenter, automatically interact with nurse joy. Consider
-        //making healing a static method, since its the same everywhere
-    }
-
-    @Override
-    public void switchScene(Scene scene) {
-
-    }
 }

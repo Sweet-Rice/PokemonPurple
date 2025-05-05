@@ -29,11 +29,15 @@ public class OakLecture {
     private final ReusableClip clip;
     private SpriteComponent sc;
     GameManager gm;
+    private Font font;
+    private int x, y;
+    private Color gray = new Color(90,90,90);
 
     public OakLecture(BasicFrame frame, GameManager gm) {
         this.card = frame.getCard();
         this.gm = gm;
         clip = new ReusableClip("lab.zip");
+        clip.loop();
         this.sc = new SpriteComponent();
         sc.setPreferredSize(new Dimension(900,600));
         card.createSingletonLayout(sc);
@@ -63,6 +67,7 @@ public class OakLecture {
                 if (iteration()==maxIteration()){
                     state = 1;
                     initLecture();
+
                     clip.play();
                 }
             }
@@ -73,11 +78,13 @@ public class OakLecture {
         card.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e ){
+                boolean uh = false;
                 if (e.getKeyCode() == KeyEvent.VK_Z&&!wait){
                     switch (state){
                         case 1->{
                             lh1.hideNow();lh1one.hideNow();
                             lh1.destroy();lh1one.destroy();
+                            init2();
                             lh2.showStrings();
                             redArrow.is_visible = false;
                             await(50);
@@ -85,6 +92,7 @@ public class OakLecture {
                         case 2->{
                             lh2.hideNow();
                             lh2.destroy();
+                            init3();
                             lh3.showStrings();
                             redArrow.is_visible = false;
                             await(30);
@@ -92,6 +100,7 @@ public class OakLecture {
                         case 3 ->{
                             lh3.hideNow();
                             lh3.destroy();
+                            init4();
                             lh4.showStrings();
                             redArrow.is_visible = false;
                             await(60);
@@ -99,6 +108,7 @@ public class OakLecture {
                         case 4 ->{
                             lh4.hideNow();
                             lh4.destroy();
+                            init5();
                             lh5.showStrings();
                             redArrow.is_visible = false;
                             await(40);
@@ -106,6 +116,7 @@ public class OakLecture {
                         case 5 ->{
                             lh5.hideNow();
                             lh5.destroy();
+                            init6();
                             lh6.showStrings();
                             redArrow.is_visible = false;
                             await(80);
@@ -113,6 +124,7 @@ public class OakLecture {
                         case 6 ->{
                             lh6.hideNow();
                             lh6.destroy();
+                            init7();
                             lh7.showStrings();
                             redArrow.is_visible = false;
                             await(90);
@@ -120,6 +132,7 @@ public class OakLecture {
                         case 7 ->{
                             lh7.hideNow();
                             lh7.destroy();
+                            init8();
                             lh8.showStrings();
                             redArrow.is_visible = false;
                             await(40);
@@ -127,6 +140,7 @@ public class OakLecture {
                         case 8 ->{
                             lh8.hideNow();
                             lh8.destroy();
+                            init9();
                             lh9.showStrings();
                             redArrow.is_visible = false;
                             await(40);
@@ -134,11 +148,13 @@ public class OakLecture {
                         case 9 ->{
                             lh9.hideNow();
                             lh9.destroy();
+                            init10();
                             lh10.showStrings();
                             redArrow.is_visible = false;
                             await(80);
                         }
                         case 10 ->{
+                            await(100);
                             TransitionSprite spr = new TransitionSprite(scene, 0);
                             spr.transition(true,5);
                             ClockWorker.addTask(new Task(50){
@@ -149,10 +165,11 @@ public class OakLecture {
                                         lh10.destroy();
                                         redArrow.destroy();
                                         clip.stop();
-                                     gm.switchGame();
+                                        gm.switchGame();
                                     }
                                 }
                             });
+
                         }
 
                     }
@@ -171,12 +188,12 @@ public class OakLecture {
 
         //clip.play();
 
-        int x, y;
+
         x = (int)textBox.getX()+50;
         y = (int)textBox.getY()+20;
 
         InputStream fontStream = getClass().getResourceAsStream("/fonts/pokemon_fire_red.ttf");
-        Font font = null;
+        font = null;
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
         } catch (FontFormatException e) {
@@ -185,7 +202,7 @@ public class OakLecture {
             throw new RuntimeException(e);
         }
         font = font.deriveFont(Font.PLAIN, 57);
-        Color gray = new Color(90,90,90);
+
 
         String one, one1, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen;
         //Group 1
@@ -193,9 +210,9 @@ public class OakLecture {
         one1 = "Glad to meet you!";
 
 
-        lh1 = new LetterHandler(x,y,400, 200, sc, font, gray,one,10);
+        lh1 = new LetterHandler(x,y,400, 100, sc, font, gray,one,10);
         lh1.shadow();
-        lh1one = new LetterHandler(x,y+50,400, 200, sc, font, gray,one1,10);
+        lh1one = new LetterHandler(x,y+50,400, 100, sc, font, gray,one1,10);
         lh1one.shadow();
         lh1.showStrings();
         ClockWorker.addTask(new Task(20){
@@ -219,40 +236,69 @@ public class OakLecture {
                 }
             }
         });
-        two = "Welcome to the world of Pokemon!";
-        lh2 = new LetterHandler(x,y,800, 200, sc, font, gray,two,10);
-        lh2.shadow();
 
-        three = "My name is Oak.";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+    //These init methods are required to reduce lag generated from an insane amount of letter sprites
+    private void init2(){
+
+        String two = "Welcome to the world of Pokemon!";
+        lh2 = new LetterHandler(x,y,800, 100, sc, font, gray,two,10);
+        lh2.shadow();
+    }
+    private void init3(){
+        String three = "My name is Oak.";
         lh3 = new LetterHandler(x,y,800, 200, sc, font, gray,three,10);
         lh3.shadow();
-
-        four = "People affectionately refer to me as the Pokemon Professor.";
+    }
+    private void init4(){
+        String four = "People affectionately refer to me as the Pokemon Professor.";
         lh4 = new LetterHandler(x,y,800, 200, sc, font, gray,four,10);
         lh4.shadow();
-
-        five = "This world...";
-        lh5 = new LetterHandler(x,y,800, 200, sc, font, gray,five,10);
+    }
+    private void init5(){
+        String five = "This world...";
+        lh5 = new LetterHandler(x,y,800, 100, sc, font, gray,five,10);
         lh5.shadow();
-
-        six = "...is inhabited far and wide by creatures called Pokemon.";
+    }
+    private void init6(){
+        String six = "...is inhabited far and wide by creatures called Pokemon.";
         lh6 = new LetterHandler(x,y,800, 200, sc, font, gray,six,10);
         lh6.shadow();
-        seven = "For some people, Pokemon are pets. Others use them for battling.";
+    }
+    private void init7(){
+        String seven = "For some people, Pokemon are pets. Others use them for battling.";
         lh7 = new LetterHandler( x,y,800, 200, sc, font, gray,seven,10);
         lh7.shadow();
-        eight = "As for myself...";
-        lh8 = new LetterHandler( x,y,800, 200, sc, font, gray,eight,10);
+    }
+    private void init8(){
+        String eight = "As for myself...";
+        lh8 = new LetterHandler( x,y,800, 100, sc, font, gray,eight,10);
         lh8.shadow();
-
-        nine = "I study Pokemon as a profession.";
-        lh9 = new LetterHandler( x,y,800, 200, sc, font, gray,nine,10);
+    }
+    private void init9(){
+        String nine = "I study Pokemon as a profession.";
+        lh9 = new LetterHandler( x,y,800, 100, sc, font, gray,nine,10);
         lh9.shadow();
-        ten = "Red, your very own Pokemon legend is about to unfold! Let's go!";
+    }
+    private void init10(){
+        String ten = "Red, your very own Pokemon legend is about to unfold! Let's go!";
         lh10 = new LetterHandler( x,y,800, 200, sc, font, gray,ten,10);
         lh10.shadow();
-
-
     }
     public void await(int waitTime){
         state++;

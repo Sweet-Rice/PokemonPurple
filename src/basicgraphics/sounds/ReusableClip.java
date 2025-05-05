@@ -28,7 +28,7 @@ import javax.swing.*;
  */
 public final class ReusableClip {
     private volatile int position, queued = 0;
-    private volatile boolean isPlaying, isPaused, isLooping;
+    private volatile boolean isPlaying, isPaused, isLooping = false;
     byte[] buf;
     AudioFormat audioFormat;
     SourceDataLine sourceLine;
@@ -193,7 +193,7 @@ public final class ReusableClip {
                 newClip.play();
             }else
             {if (verbose){System.out.println("wont enqueue cus looping");}}
-            System.out.println("returned");
+            if (verbose)System.out.println("returned");
             return this;
         }
 
@@ -226,10 +226,10 @@ public final class ReusableClip {
                         }
                         int written = sourceLine.write(buf, position, available);
                         position += written;
-                        System.out.println("written: " + written);
+
 
                         if (position >= buf.length) {
-                            System.out.println("break");
+
                             break;
                         }
                     }
@@ -265,6 +265,7 @@ public final class ReusableClip {
         //modifies volatile bools so that the thread can access them during while loop
         isPlaying = false;
         isPaused = false;
+        isLooping = false;
         position = 0;
         closeLine();
         notifyAll(); // Wake up thread if paused. basic hygiene to make sure that thread is still usable

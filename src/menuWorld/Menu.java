@@ -26,7 +26,7 @@ public class Menu {
 
     private int beginProg = 0;
 
-    final ReusableClip titleClip = new ReusableClip("title.wav");
+    final ReusableClip titleClip = new ReusableClip("title.zip");
     //final ReusableClip buttonClip = new ReusableClip("button1.wav");
 
     GameManager gm;
@@ -112,7 +112,7 @@ public class Menu {
         BasicLayout blayout = new BasicLayout();
         card.add(sc);
         sc.setLayout(blayout);
-        ClockWorker.addTask(sc.moveSprites());
+        //ClockWorker.addTask(sc.moveSprites());
         bouncingsprite = new BouncingSprite(scene, sc);
         red = new Red(scene, sc);
         gary = new Gary(scene, sc);

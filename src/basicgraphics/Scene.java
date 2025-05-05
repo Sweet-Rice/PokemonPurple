@@ -25,6 +25,9 @@ public class Scene {
     
     public boolean periodic_x = false;
     public boolean periodic_y = false;
+    public Dimension getBackgroundSize(){
+        return backgroundSize;
+    }
 
     void addSprite(Sprite sp) {
         Util.invokeAndWait(()->{ sprites.add(sp);});
@@ -46,7 +49,7 @@ public class Scene {
             System.out.println("Image size: "+d);
         }
     }
-    public  Dimension getBackgroundSize() { return backgroundSize; }
+
     Painter painter = null;
     public void setPainter(Painter p) {
         painter = p;
